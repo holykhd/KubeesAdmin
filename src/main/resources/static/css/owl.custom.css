@@ -1,0 +1,103 @@
+/*
+.owl-demo .item{
+    margin: 3px;
+}
+
+.owl-demo .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.owl-carousel {
+    width: 100%;
+}
+
+.owl-carousel .item {
+    width: 100%;
+}
+
+.owl-stage-outer{
+    position: relative;
+}
+.owl-nav > .owl-prev{
+    position: absolute;
+    top: 30%;
+    left: -2%;
+}
+.owl-nav > .owl-next{
+    position: absolute;
+    top: 30%;
+    right: -2%;
+}
+
+ */
+
+.carousel-wrap {
+    width: 600px;
+    margin: auto;
+    position: relative;
+}
+.owl-carousel .owl-nav{
+    overflow: hidden;
+    height: 0px;
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+    background: #2caae1;
+}
+.owl-carousel .item {
+    text-align: center;
+}
+
+.owl-carousel .owl-prev.disabled,
+.owl-carousel .owl-next.disabled{
+    pointer-events: none;
+    opacity: 0.2;
+}
+
+.owl-carousel .prev-slide::before{
+    color: #707275 !important;
+    position: absolute;
+    left: -20px;
+    top: 30%;
+    content: '\f0d9';
+    font-family: "Font Awesome 5 Free";
+    font-weight: 700;
+    font-size: 2rem;
+    display: inline-block;
+}
+.owl-carousel .next-slide::before{
+    color: #707275 !important;
+    position: absolute;
+    right: -20px;
+    top: 30%;
+    content: '\f0da';
+    font-family: "Font Awesome 5 Free";
+    font-weight: 700;
+    font-size: 2rem;
+    display: inline-block;
+}
+
+.owl-carousel .prev-slide:hover, .owl-carousel .next-slide:hover{
+    color: #000 !important;
+}
+
+/*
+.owl-carousel .prev-slide{
+    background: url('https://freakyjolly.com/demo/jquery/OwlCarousel2/nav-icon.png') no-repeat scroll 0 0;
+    left: -33px;
+}
+.owl-carousel .next-slide{
+    background: url('https://freakyjolly.com/demo/jquery/OwlCarousel2/nav-icon.png') no-repeat scroll -24px 0px;
+    right: -33px;
+}
+.owl-carousel .prev-slide:hover{
+    background-position: 0px -53px;
+}
+.owl-carousel .next-slide:hover{
+    background-position: -24px -53px;
+}
+ */
+

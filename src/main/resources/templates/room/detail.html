@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/kubeesLayout :: layout(~{::title}, ~{::submenu}, ~{::main}, ~{::footer})}" x-data="data()" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">-->
+  <head>
+    <title>KUBEES Admin</title>
+  </head>
+  <body>
+  <th:block th:fragment="submenu">
+    <div class="flex justify-start">
+      <a href="#">
+        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          Sub Menu1
+        </button>
+      </a>
+      <a href="#">
+        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          Sub Menu2
+        </button>
+      </a>
+      <a href="#">
+        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          Sub Menu3
+        </button>
+      </a>
+      <a href="#">
+        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          Sub Menu4
+        </button>
+      </a>
+      <a href="#">
+        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          Sub Menu5
+        </button>
+      </a>
+      <a href="#">
+        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          Sub Menu6
+        </button>
+      </a>
+      <a href="#">
+        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          Sub Menu7
+        </button>
+      </a>
+    </div>
+  </th:block>
+    <main class="h-full overflow-y-auto">
+      <!-- start -->
+      <div class="px-6 grid md:grid-cols-2 gap-4">
+        <!-- Breadcrumb start -->
+        <div class="text-xl font-semibold flex items-center h-16">
+          <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+              <li class="inline-flex items-center">
+                <a href="#" class="inline-flex items-center text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                  <svg class="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                  Home
+                </a>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">큐브(룸) 관리</a>
+                </div>
+              </li>
+              <li aria-current="page">
+                <div class="flex items-center">
+                  <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                  <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500">상세</span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <!-- Breadcrumb end -->
+      </div>
+      <!-- end -->
+      <!-- start -->
+      <div class="px-6 grid gap-4">
+        <div class="grid gap-6">
+          <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+            <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            </div>
+            <div>
+              <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">회원정보</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="grid gap-6">
+          <div class="flex items-start p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+
+            <div class="w-full overflow-hidden rounded-lg shadow-xs">
+              <div class="w-full overflow-auto">
+                <table class="w-full">
+                  <thead>
+                  <tr class="text-sm text-gray-700 border-b dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                    <th class="px-4 py-3 bg-gray-50 w-32">사용자 계정</th>
+                    <td class="px-4 py-3">kubees001@gmail.com</td>
+                  </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                  <tr class="text-sm text-gray-700 dark:text-gray-400">
+                    <th class="px-4 py-3 bg-gray-50 w-32">보유한 큐브(룸)</th>
+                    <td class="px-4 py-3 text-sm">12개</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex p-4 mb-4 text-sm text-gray-700 bg-white shadow-xs rounded-md dark:bg-gray-700 dark:text-gray-300" role="alert">
+          <span class="text-lg font-semibold mr-10">큐브(룸) 목록</span>
+          <span class="ml-5">
+            <label for="toggle-example-checked" class="flex relative items-center cursor-pointer">
+              <input type="checkbox" id="toggle-example-checked" class="sr-only" checked>
+              <div class="w-11 h-6 bg-gray-200 rounded-full border border-gray-200 toggle-bg dark:bg-gray-700 dark:border-gray-600"></div>
+              <span class="ml-3 text-sm font-medium text-red-900 dark:text-red-300">* 숨김 처리된 피드만 보기</span>
+            </label>
+          </span>
+        </div>
+      </div>
+      <!-- end -->
+
+
+      <div class="px-6 mx-auto grid mb-5">
+        <!-- 상단 타이틀 & 검색영역 -->
+        <!-- New Table -->
+        <div class="w-full overflow-hidden rounded-lg shadow-xs">
+          <div class="w-full overflow-auto">
+
+            <!-- start -->
+            <div class="grid xl:grid-cols-4 lg:grid-cols-2 gap-4 feed-gallery">
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class="flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-2.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-3.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-2.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-3.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-2.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-3.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-2.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-3.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-2.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-3.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+              <!-- gallery article start -->
+              <div class="relative">
+                <p class=" flex justify-center">
+                  <a href="#" class="absolute bottom-0 z-50">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      숨김 해제
+                    </button>
+                  </a>
+                </p>
+                <figure class="gallery">
+                  <img class="object-cover rounded-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+                  <figcaption>
+                    <h2>컨텐츠 제목 출력부분</h2>
+                    <p class="font-bold text-xs">내용이 출력되는 부분입니다. 내용은 이렇게 출력이 됩니다. 피드목록 설명내용을 보여줍니다.</p>
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- gallery article end -->
+
+            </div>
+            <!-- end -->
+          </div>
+        </div>
+      </div>
+    </main>
+  <footer>Kubees Member Detail Footer</footer>
+  </body>
+</html>
