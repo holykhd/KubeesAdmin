@@ -1,140 +1,143 @@
 <!DOCTYPE html>
-<html th:replace="~{layout/kubeesLayout :: layout(~{::title}, ~{::submenu}, ~{::main}, ~{::footer})}" x-data="data()" lang="en" xmlns:th="http://www.thymeleaf.org">
-<!--<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">-->
-  <head>
-    <title>KUBEES Admin</title>
-  </head>
-  <body>
-  <th:block th:fragment="submenu">
-    <div class="flex justify-start">
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu1
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu2
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu3
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu4
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu5
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu6
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu7
-        </button>
-      </a>
-    </div>
-  </th:block>
-    <main class="h-full overflow-y-auto">
-      <!-- start -->
-      <div class="px-6 grid md:grid-cols-2 gap-4">
-        <!-- Breadcrumb start -->
-        <div class="text-xl font-semibold flex items-center h-16">
-          <nav class="flex" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-              <li class="inline-flex items-center">
-                <a href="#" class="inline-flex items-center text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                  <svg class="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                  Home
-                </a>
-              </li>
-              <li>
-                <div class="flex items-center">
-                  <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                  <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">Q&A 관리</a>
+<html x-data="data()" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/fragment :: head">
+<body>
+
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900"
+     :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <!-- 좌측 메뉴 -->
+    <div th:replace="layout/fragment :: left-menu"></div>
+
+    <div
+            x-show="isSideMenuOpen"
+            x-transition:enter="transition ease-in-out duration-150"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in-out duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+    ></div>
+    <!-- 모바일 메뉴 -->
+    <div th:replace="layout/fragment :: mobile-menu"></div>
+
+    <div class="flex flex-col flex-1 w-full">
+        <!-- sub 상단 메뉴 -->
+        <div th:replace="layout/sub-header-fragment ::sub-header-qna"></div>
+        <main class="h-full overflow-y-auto">
+            <!-- start -->
+            <div class="px-6 grid md:grid-cols-2 gap-4">
+                <!-- Breadcrumb start -->
+                <div class="text-xl font-semibold flex items-center h-16">
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                            <li class="inline-flex items-center">
+                                <a href="#"
+                                   class="inline-flex items-center text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                                    <svg class="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                                    </svg>
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                    <a href="#"
+                                       class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">Q&A
+                                        관리</a>
+                                </div>
+                            </li>
+                            <li aria-current="page">
+                                <div class="flex items-center">
+                                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500">상세</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </nav>
                 </div>
-              </li>
-              <li aria-current="page">
-                <div class="flex items-center">
-                  <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                  <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500">상세</span>
-                </div>
-              </li>
-            </ol>
-          </nav>
-        </div>
-        <!-- Breadcrumb end -->
-      </div>
-      <!-- end -->
-
-
-      <!-- start -->
-      <div class="px-6 grid gap-4">
-
-        <div class="grid gap-6">
-          <div class="w-full overflow-hidden rounded-lg shadow-xs">
-            <div class="w-full overflow-auto bg-white">
-              <table class="w-full">
-                <tbody>
-                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                  <th class="px-4 py-3 bg-gray-50 w-32">문의자 정보</th>
-                  <td class="px-4 py-3 bg-white">
-                    kubees001@gmail.com / 홍길동
-                  </td>
-                  <th class="px-4 py-3 bg-gray-50 w-32">문의 유형</th>
-                  <td class="px-4 py-3 bg-white">
-                    서비스 문의
-                  </td>
-                </tr>
-                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                  <th class="px-4 py-3 bg-gray-50 w-32">등록일</th>
-                  <td colspan="3" class="px-4 py-3 bg-white">
-                    2022-01-01 11:11:11
-                  </td>
-                </tr>
-                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                  <th class="px-4 py-3 bg-gray-50 w-32">문의제목</th>
-                  <td colspan="3" class="px-4 py-3 bg-white">
-                    문의 제목이 출력됩니다.
-                  </td>
-                </tr>
-                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                  <th class="px-4 py-3 bg-gray-50 w-32">문의내용</th>
-                  <td colspan="3" class="px-4 py-3 bg-white">
-                    문의 내용이 출력됩니다.
-                  </td>
-                </tr>
-                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                  <th class="px-4 py-3 bg-gray-50 w-32">답변내용</th>
-                  <td colspan="3" class="px-4 py-3 bg-white">
-                    <textarea name="" id="" cols="30" rows="10" class="w-full h-36 form-input"></textarea>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-              <div class="flex justify-center my-4 gap-4">
-                <a href="/admin/qna/detail">
-                  <button class="bg-gray-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">취소</button>
-                </a>
-                <a href="/admin/qna/detail">
-                  <button class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-red-700">답변등록</button>
-                </a>
-              </div>
+                <!-- Breadcrumb end -->
             </div>
-          </div>
-        </div>
-      </div>
-      <!-- end -->
-    </main>
-  <footer>Kubees Member Detail Footer</footer>
-  </body>
+            <!-- end -->
+
+
+            <!-- start -->
+            <div class="px-6 grid gap-4">
+
+                <div class="grid gap-6">
+                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                        <div class="w-full overflow-auto bg-white">
+                            <table class="w-full">
+                                <tbody>
+                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3 bg-gray-50 w-32">문의자 정보</th>
+                                    <td class="px-4 py-3 bg-white">
+                                        kubees001@gmail.com / 홍길동
+                                    </td>
+                                    <th class="px-4 py-3 bg-gray-50 w-32">문의 유형</th>
+                                    <td class="px-4 py-3 bg-white">
+                                        서비스 문의
+                                    </td>
+                                </tr>
+                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3 bg-gray-50 w-32">등록일</th>
+                                    <td colspan="3" class="px-4 py-3 bg-white">
+                                        2022-01-01 11:11:11
+                                    </td>
+                                </tr>
+                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3 bg-gray-50 w-32">문의제목</th>
+                                    <td colspan="3" class="px-4 py-3 bg-white">
+                                        문의 제목이 출력됩니다.
+                                    </td>
+                                </tr>
+                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3 bg-gray-50 w-32">문의내용</th>
+                                    <td colspan="3" class="px-4 py-3 bg-white">
+                                        문의 내용이 출력됩니다.
+                                    </td>
+                                </tr>
+                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3 bg-gray-50 w-32">답변내용</th>
+                                    <td colspan="3" class="px-4 py-3 bg-white">
+                                        <textarea name="" id="" cols="30" rows="10"
+                                                  class="w-full h-36 form-input"></textarea>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="flex justify-center my-4 gap-4">
+                                <a href="/admin/qna/detail">
+                                    <button class="bg-gray-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">
+                                        취소
+                                    </button>
+                                </a>
+                                <a href="/admin/qna/detail">
+                                    <button class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-red-700">
+                                        답변등록
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end -->
+        </main>
+        <div th:replace="layout/fragment :: footer"></div>
+    </div>
+</div>
+</body>
 </html>

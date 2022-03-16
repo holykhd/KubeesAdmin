@@ -1,48 +1,29 @@
 <!DOCTYPE html>
-<html th:replace="~{layout/kubeesLayout :: layout(~{::title}, ~{::submenu}, ~{::main}, ~{::footer})}" x-data="data()" lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>KUBEES Admin</title>
-  </head>
-  <body>
-    <th:block th:fragment="submenu">
-    <div class="flex justify-start">
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu1
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu2
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu3
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu4
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu5
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu6
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Sub Menu7
-        </button>
-      </a>
-    </div>
-    </th:block>
+<html x-data="data()" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/fragment :: head">
+<body>
+
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900"
+     :class="{ 'overflow-hidden': isSideMenuOpen }">
+  <!-- 좌측 메뉴 -->
+  <div th:replace="layout/fragment :: left-menu"></div>
+
+  <div
+          x-show="isSideMenuOpen"
+          x-transition:enter="transition ease-in-out duration-150"
+          x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100"
+          x-transition:leave="transition ease-in-out duration-150"
+          x-transition:leave-start="opacity-100"
+          x-transition:leave-end="opacity-0"
+          class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+  ></div>
+  <!-- 모바일 메뉴 -->
+  <div th:replace="layout/fragment :: mobile-menu"></div>
+
+  <div class="flex flex-col flex-1 w-full">
+    <!-- sub 상단 메뉴 -->
+    <div th:replace="layout/sub-header-fragment ::sub-header-sns"></div>
     <main class="h-full overflow-y-auto">
       <!-- start -->
       <div class="px-6 grid md:grid-cols-2 gap-4">
@@ -367,8 +348,8 @@
         </div>
       </div>
     </main>
-    <footer>
-      Kubees Footer Area
-    </footer>
-  </body>
+  <div th:replace="layout/fragment :: footer"></div>
+</div>
+</div>
+</body>
 </html>

@@ -1,121 +1,108 @@
 <!DOCTYPE html>
-<html th:replace="~{layout/kubeesLayout :: layout(~{::title}, ~{::submenu}, ~{::main}, ~{::footer})}" x-data="data()" lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>KUBEES Admin</title>
-  </head>
+<html x-data="data()" lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="layout/fragment :: head">
   <body>
-    <th:block th:fragment="submenu">
-    <div class="flex justify-start">
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          전체 회원
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          정상 이용 회원
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          사용 제한 회원
-        </button>
-      </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          차단 중인 회원
-        </button>
-      </a>
-    </div>
-    </th:block>
-    <main class="h-full overflow-y-auto">
-      <!-- start -->
-      <div class="px-6 grid md:grid-cols-2 gap-4">
-        <!-- Breadcrumb start -->
-        <div class="text-xl font-semibold flex items-center h-16">
-          <nav class="flex" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-              <li class="inline-flex items-center">
-                <a href="#" class="inline-flex items-center text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                  <svg class="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                  Home
-                </a>
-              </li>
-              <li>
-                <div class="flex items-center">
-                  <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                  <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">회원 관리</a>
-                </div>
-              </li>
-              <li aria-current="page">
-                <div class="flex items-center">
-                  <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                  <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500">목록</span>
-                </div>
-              </li>
-            </ol>
-          </nav>
-        </div>
-        <!-- Breadcrumb end -->
-        <div class="my-2 grid md:grid-cols-6 gap-2">
-          <div class="grid md:grid-cols-4 gap-2 md:col-span-4">
-            <div class="md:col-span-1">
-              <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 hidden">검색항목 선택</label>
-              <select id="countries" class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option>연락처</option>
-                <option>이름</option>
-                <option>닉네임</option>
-                <option>계정</option>
-              </select>
+
+  <div class="flex h-screen bg-gray-50 dark:bg-gray-900"
+       :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <!-- 좌측 메뉴 -->
+    <div th:replace="layout/fragment :: left-menu"></div>
+
+    <div
+            x-show="isSideMenuOpen"
+            x-transition:enter="transition ease-in-out duration-150"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in-out duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+    ></div>
+    <!-- 모바일 메뉴 -->
+    <div th:replace="layout/fragment :: mobile-menu"></div>
+
+    <div class="flex flex-col flex-1 w-full">
+      <!-- sub 상단 메뉴 -->
+      <div th:replace="layout/sub-header-fragment ::sub-header-user"></div>
+
+
+
+
+
+      <main class="h-full overflow-y-auto">
+        <!-- start -->
+        <div class="px-6 grid md:grid-cols-2 gap-4">
+          <div class="p-2 text-xl font-semibold flex items-center">회원관리</div>
+          <div class="p-2 grid md:grid-cols-6">
+            <div class="grid md:grid-cols-4 gap-2 md:col-span-4">
+              <div class="md:col-span-1">
+                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 hidden">검색항목 선택</label>
+                <select id="countries" class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option>연락처</option>
+                  <option>이름</option>
+                  <option>닉네임</option>
+                  <option>계정</option>
+                </select>
+              </div>
+              <div class="md:col-span-2">
+                <input class="w-full h-full py-3 pl-2.5 pr-2 text-sm placeholder-gray-600 bg-white border border-gray-300 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300"
+                       type="text"
+                       placeholder="검색어 입력"
+                       aria-label="Search"/>
+              </div>
+              <div class="md:col-span-1">
+                <button class="md:w-20 w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
+                  검색
+                </button>
+              </div>
             </div>
-            <div class="md:col-span-2">
-              <input class="w-full h-full py-3 pl-2.5 pr-2 text-sm placeholder-gray-600 bg-white border border-gray-300 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300"
-                     type="text"
-                     placeholder="검색어 입력"
-                     aria-label="Search"/>
-            </div>
-            <div class="md:col-span-1">
-              <button class="md:w-20 w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                검색
-              </button>
-            </div>
-          </div>
-          <div class="grid md:grid-cols-1 gap-2 md:col-span-2 md:flex md:justify-end md:ml-3">
-            <div>
-              <button class="w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-gray-600 border border-transparent rounded-lg active:bg-gray-700 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                제한된 사용자 관리
-              </button>
+            <div class="grid md:grid-cols-3 gap-2 md:col-span-2">
+              <div></div>
+              <div class="col-span-2">
+                <button class="w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-gray-600 border border-transparent rounded-lg active:bg-gray-700 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
+                  제한된 사용자 관리
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- end -->
-      <div class="px-6 mx-auto grid">
-        <!-- 상단 타이틀 & 검색영역 -->
-        <!-- New Table -->
-        <div class="w-full overflow-hidden rounded-lg shadow-xs">
-          <div class="w-full overflow-auto">
-            <table class="w-full whitespace-no-wrap">
-              <thead>
+        <!-- end -->
+
+
+        <div class="px-6 mx-auto grid">
+          <!-- 상단 타이틀 & 검색영역 -->
+          <!-- New Table -->
+          <div class="w-full overflow-hidden rounded-lg shadow-xs">
+            <div class="w-full overflow-auto">
+              <table class="w-full whitespace-no-wrap">
+                <thead>
                 <tr class="text-sm font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                   <th class="px-4 py-3"><input type="checkbox"></th>
                   <th class="px-4 py-3 text-center">사용자 계정</th>
+                  <th class="px-4 py-3 text-center">계정상태</th>
                   <th class="px-4 text-center">
                     <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">관리</button>
                   </th>
                   <th class="px-4 py-3 text-center">닉네임</th>
                   <th class="px-4 py-3 text-center">이름</th>
                   <th class="px-4 py-3 text-center">연락처</th>
-                  <th class="px-4 py-3 text-center">계정 상태</th>
                   <th class="px-4 py-3 text-center">최근 접속 일시</th>
                   <th class="px-4 py-3 text-center">가입일</th>
                   <th class="px-4 py-3 text-center">큐브(룸)</th>
                 </tr>
-              </thead>
-              <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                </thead>
+                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${userList}">
                   <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a th:href="@{/admin/user/detail}" th:text="${list.email}">cube001@gmail.com</a></td>
+                  <td class="px-4 py-3 text-sm"><a th:href="@{/admin/user/detail/{email}(email=${list.email})}"><span th:text="${list.email}">cube001@gmail.com</span></a></td>
+                  <td class="px-4 py-3 text-sm text-center">
+                    <span th:if="${list.userStatus.toString() == 'Y'}" th:text="정상"></span>
+                    <span th:if="${list.userStatus.toString() == 'D'}" th:text="탈퇴"></span>
+                    <span th:if="${list.userStatus.toString() == 'B'}" th:text="이용정지"></span>
+                    <span th:if="${list.userStatus.toString() == 'T'}" th:text="탈퇴유예"></span>
+                    <span th:if="${list.userStatus.toString() == 'P'}" th:text="이용정지유예"></span>
+                    <span th:if="${list.userStatus.toString() == 'M'}" th:text="유실"></span>
+                  </td>
                   <td class="px-4 py-3 text-center text-xs">
                     <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
                       사용 제한
@@ -124,108 +111,170 @@
                   <td class="px-4 py-3 text-center text-xs" th:text="${list.nickname}">닉네임</td>
                   <td class="px-4 py-3 text-center text-sm" th:text="${list.name}">홍길동</td>
                   <td class="px-4 py-3 text-center text-sm" th:text="${list.phone}">010-112-3332</td>
-                  <td class="px-4 py-3 text-center text-sm text-red-600">제한</td>
                   <td class="px-4 py-3 text-center text-sm" th:text="${list.lastLoginDate}">2022.01.01 12:12:12</td>
                   <td class="px-4 py-3 text-center text-sm" th:text="${list.createdAt}">2022.01.01 12:12:12</td>
                   <td class="px-4 py-3 text-center text-sm">
-                    <a th:href="@{/admin/user/detail}">
+                    <a th:href="@{/admin/user/detail/{email}(email=${list.email})}">
                       <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
                         List 상세보기
                       </button>
                     </a>
                   </td>
                 </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="grid grid-cols-6 gap-4 px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-6 dark:text-gray-400 dark:bg-gray-800">
-            <div class="col-start-1 col-span-1">
-              <button @click="openModal" class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-gray-600 border border-transparent rounded-lg active:bg-gray-700 hover:bg-gray-800 focus:outline-none focus:shadow-outline-gray">
-                선택한 계정 삭제
-              </button>
+                </tbody>
+              </table>
             </div>
-            <div class="col-start-2 col-end-6 text-center">
-              <nav aria-label="Page navigation example">
-                <ul class="inline-flex items-center -space-x-px flex items-baseline">
-                  <li>
-                    <a href="#" class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      <i class="fas fa-angle-double-left"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      <i class="fas fa-chevron-left"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      1
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      2
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" aria-current="page" class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
-                      3
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      4
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      5
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      6
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      7
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      8
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      9
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      10
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="block py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      <i class="fas fa-chevron-right"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      <i class="fas fa-angle-double-right"></i>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+            <div class="grid grid-cols-6 gap-4 px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-6 dark:text-gray-400 dark:bg-gray-800">
+              <div class="col-start-1 col-span-1">
+                <button @click="openModal" class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-gray-600 border border-transparent rounded-lg active:bg-gray-700 hover:bg-gray-800 focus:outline-none focus:shadow-outline-gray">
+                  선택한 계정 삭제
+                </button>
+              </div>
+              <div class="col-start-2 col-end-6 text-center">
+                <nav aria-label="Page navigation example">
+                  <ul class="inline-flex items-center -space-x-px flex items-baseline">
+                    <li>
+                      <a href="#" class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <i class="fas fa-angle-double-left"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <i class="fas fa-chevron-left"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        1
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        2
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" aria-current="page" class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+                        3
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        4
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        5
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        6
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        7
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        8
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        9
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        10
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="block py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <i class="fas fa-chevron-right"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" class="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <i class="fas fa-angle-double-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
         </div>
+      </main>
+
+      <!-- open Modal Start -->
+      <!-- Modal backdrop. This what you want to place close to the closing body tag -->
+      <div x-show="isModalOpen"
+           x-transition:enter="transition ease-out duration-150"
+           x-transition:enter-start="opacity-0"
+           x-transition:enter-end="opacity-100"
+           x-transition:leave="transition ease-in duration-150"
+           x-transition:leave-start="opacity-100"
+           x-transition:leave-end="opacity-0"
+           class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+        <!-- Modal -->
+        <div x-show="isModalOpen"
+             x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0 transform translate-y-1/2"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0  transform translate-y-1/2"
+             @click.away="closeModal"
+             @keydown.escape="closeModal"
+             class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+             role="dialog"
+             id="modal">
+          <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+          <header class="flex justify-end">
+            <button class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
+                    aria-label="close"
+                    @click="closeModal">
+              <svg class="w-4 h-4"
+                   fill="currentColor"
+                   viewBox="0 0 20 20"
+                   role="img"
+                   aria-hidden="true">
+                <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                      fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </header>
+          <!-- Modal body -->
+          <div class="mb-6">
+            <!-- Modal title -->
+            <p class="mb-2 text-xl font-semibold text-center text-gray-700 dark:text-gray-300">
+              계정 삭제
+            </p>
+            <!-- Modal description -->
+            <p class="text-sm text-gray-700 bg-gray-100 dark:text-gray-400 p-4 mb-3">
+              cubes001@gmail.com
+            </p>
+            <p class="text-sm text-gray-700 dark:text-gray-400">
+              선택하신 사용자 계정의 사용제한을 해제하시겠습니까?
+            </p>
+          </div>
+          <footer class="flex flex-col items-center justify-center px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
+            <button @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+              확인
+            </button>
+          </footer>
+        </div>
       </div>
-    </main>
-    <footer>
-      Kubees Footer Area
-    </footer>
+      <!-- open Modal End -->
+      <div th:replace="layout/fragment :: footer"></div>
+    </div>
+  </div>
+  <script th:src="@{/js/flowbite.js}"></script>
   </body>
 </html>

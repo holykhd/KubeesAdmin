@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html x-data="data()" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/fragment :: head">
+<body>
+
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900"
+     :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <!-- 좌측 메뉴 -->
+    <div th:replace="layout/fragment :: left-menu"></div>
+
+    <div
+            x-show="isSideMenuOpen"
+            x-transition:enter="transition ease-in-out duration-150"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in-out duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+    ></div>
+    <!-- 모바일 메뉴 -->
+    <div th:replace="layout/fragment :: mobile-menu"></div>
+
+    <div class="flex flex-col flex-1 w-full">
+        <!-- sub 상단 메뉴 -->
+        <div th:replace="layout/sub-header-fragment ::sub-header-partners"></div>
+        <main class="h-full overflow-y-auto">
+            <!-- start -->
+            <div class="px-6 grid md:grid-cols-2 gap-4">
+                <!-- Breadcrumb start -->
+                <div class="text-xl font-semibold flex items-center h-16">
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                            <li class="inline-flex items-center">
+                                <a href="#"
+                                   class="inline-flex items-center text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                                    <svg class="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                                    </svg>
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                    <a href="#"
+                                       class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">협력업체
+                                        관리</a>
+                                </div>
+                            </li>
+                            <li aria-current="page">
+                                <div class="flex items-center">
+                                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500">등록</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <!-- Breadcrumb end -->
+            </div>
+            <!-- end -->
+
+
+            <!-- start -->
+            <div class="px-6 grid gap-4">
+                <form th:action="@{/admin/partners/form}" th:object="${partnersForm}" method="post">
+                    <input type="hidden" name="partnerCreatedUserId" th:value="${#authentication.name}">
+                    <div class="grid gap-6">
+                        <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                            <div class="w-full overflow-auto bg-white">
+                                <table class="w-full">
+                                    <tbody>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-48">등록자 아이디</th>
+                                        <td class="px-4 py-3 bg-white" sec:authentication="name">
+
+                                        </td>
+                                    </tr>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-48">업체명</th>
+                                        <td class="px-4 py-3 bg-white">
+                                            <input type="text" id="partnerCompanyName" th:field="*{partnerCompanyName}" class="w-full form-input" minlength="2" maxlength="20">
+                                            <span id="companyNameHelp" th:if="${#fields.hasErrors('partnerCompanyName')}" class="text-red-600">업체명을 입력해 주세요</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-48">업체 아이디</th>
+                                        <td class="px-4 py-3 bg-white">
+                                            <input type="text" id="partnerId" th:field="*{partnerId}" class="w-full form-input" minlength="4" maxlength="20">
+                                            <span id="partnerIdHelp" th:if="${#fields.hasErrors('partnerId')}" class="text-red-600">아이디를 입력해 주세요</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-48">비밀번호</th>
+                                        <td class="px-4 py-3 bg-white">
+                                            <input type="password" id="partnerPassword" th:field="*{partnerPassword}" class="w-full form-input" minlength="4" maxlength="20">
+                                            <span id="partnerPasswordHelp" th:if="${#fields.hasErrors('partnerPassword')}" class="text-red-600">비밀번호를 입력해 주세요</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-48">담당자명</th>
+                                        <td class="px-4 py-3 bg-white">
+                                            <input type="text" th:field="*{partnerUserName}" class="w-full form-input" minlength="3" maxlength="10">
+                                            <span id="partnerUserNameHelp" th:if="${#fields.hasErrors('partnerUserName')}" class="text-red-600">담당자명을 입력해 주세요</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-48">연락처</th>
+                                        <td class="px-4 py-3 bg-white">
+                                            <input type="tel" th:field="*{partnerPhone}" class="w-full form-input" minlength="12" maxlength="13" pattern="[0-9]{3}-[1-9]{3,4}-[1-9]{4}" placeholder="010-1234-5678">
+                                            <span id="partnerPhoneHelp" th:if="${#fields.hasErrors('partnerPhone')}" class="text-red-600">연락처를 입력해 주세요</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-48">이메일</th>
+                                        <td class="px-4 py-3 bg-white">
+                                            <input type="email" th:field="*{partnerEmail}" class="w-full form-input" minlength="7" maxlength="30">
+                                            <span id="partnerEmailHelp" th:if="${#fields.hasErrors('partnerEmail')}" class="text-red-600">이메일을 입력해 주세요</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="flex justify-center my-4 gap-4">
+                                    <a th:href="@{/admin/partners/list}">
+                                        <button type="button" class="bg-gray-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">
+                                            취소
+                                        </button>
+                                    </a>
+                                    <button class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-red-700">
+                                        등록
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- end -->
+        </main>
+        <div th:replace="layout/fragment :: footer"></div>
+    </div>
+</div>
+</body>
+</html>
