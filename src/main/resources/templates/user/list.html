@@ -27,48 +27,47 @@
 
 
 
-
-
       <main class="h-full overflow-y-auto">
         <!-- start -->
         <div class="px-6 grid md:grid-cols-2 gap-4">
           <div class="p-2 text-xl font-semibold flex items-center">회원관리</div>
-          <div class="p-2 grid md:grid-cols-6">
-            <div class="grid md:grid-cols-4 gap-2 md:col-span-4">
-              <div class="md:col-span-1">
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 hidden">검색항목 선택</label>
-                <select id="countries" class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option>연락처</option>
-                  <option>이름</option>
-                  <option>닉네임</option>
-                  <option>계정</option>
-                </select>
+          <form th:action="@{/admin/user/list}" th:object="${searchForm}">
+            <div class="p-2 grid md:grid-cols-6">
+              <div class="grid md:grid-cols-4 gap-2 md:col-span-4">
+                <div class="md:col-span-1">
+                  <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 hidden">검색항목 선택</label>
+                  <select id="countries" th:field="*{searchType}" name="searchType" class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="phone">연락처</option>
+                    <option value="name">이름</option>
+                    <option value="nickname">닉네임</option>
+                    <option value="email">이메일</option>
+                  </select>
+                </div>
+                <div class="md:col-span-2">
+                  <input class="w-full h-full py-3 pl-2.5 pr-2 text-sm placeholder-gray-600 bg-white border border-gray-300 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300"
+                         type="text"
+                         th:field="*{keyword}"
+                         placeholder="검색어 입력"
+                         aria-label="Search"/>
+                </div>
+                <div class="md:col-span-1">
+                  <button class="md:w-20 w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
+                    검색
+                  </button>
+                </div>
               </div>
-              <div class="md:col-span-2">
-                <input class="w-full h-full py-3 pl-2.5 pr-2 text-sm placeholder-gray-600 bg-white border border-gray-300 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300"
-                       type="text"
-                       placeholder="검색어 입력"
-                       aria-label="Search"/>
+              <div class="grid md:grid-cols-3 gap-2 md:col-span-2">
+                <div></div>
+                <div class="col-span-2">
+                  <button class="w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-gray-600 border border-transparent rounded-lg active:bg-gray-700 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
+                    제한된 사용자 관리
+                  </button>
+                </div>
               </div>
-              <div class="md:col-span-1">
-                <button class="md:w-20 w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                  검색
-                </button>
-              </div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-2 md:col-span-2">
-              <div></div>
-              <div class="col-span-2">
-                <button class="w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-gray-600 border border-transparent rounded-lg active:bg-gray-700 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                  제한된 사용자 관리
-                </button>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
         <!-- end -->
-
-
         <div class="px-6 mx-auto grid">
           <!-- 상단 타이틀 & 검색영역 -->
           <!-- New Table -->
@@ -92,6 +91,9 @@
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                <tr class="text-gray-700 dark:text-gray-400" th:if="${userList.size() == 0}">
+                  <td colspan="10" class="p-10 text-center text-gray-700 dark:text-gray-400">게시글이 존재하지 않습니다.</td>
+                </tr>
                 <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${userList}">
                   <td class="px-4 py-3"><input type="checkbox"></td>
                   <td class="px-4 py-3 text-sm"><a th:href="@{/admin/user/detail/{email}(email=${list.email})}"><span th:text="${list.email}">cube001@gmail.com</span></a></td>
@@ -114,7 +116,7 @@
                   <td class="px-4 py-3 text-center text-sm" th:text="${list.lastLoginDate}">2022.01.01 12:12:12</td>
                   <td class="px-4 py-3 text-center text-sm" th:text="${list.createdAt}">2022.01.01 12:12:12</td>
                   <td class="px-4 py-3 text-center text-sm">
-                    <a th:href="@{/admin/user/detail/{email}(email=${list.email})}">
+                    <a th:href="@{/admin/user/detail/{email}(email=${list.email}, searchType=${param.searchType}, keyword=${param.keyword})}">
                       <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
                         List 상세보기
                       </button>

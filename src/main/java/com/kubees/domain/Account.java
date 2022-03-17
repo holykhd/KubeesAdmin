@@ -61,6 +61,8 @@ public class Account {
     @Column(name = "created_at")
     private LocalDateTime createdAt;            // 등록일
 
+    private String openFlag;                    // 계정 상태(사용중 : Y / 삭제 : N)
+
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;           // 수정일
 
