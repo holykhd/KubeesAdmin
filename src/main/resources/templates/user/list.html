@@ -91,12 +91,12 @@
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                <tr class="text-gray-700 dark:text-gray-400" th:if="${userList.size() == 0}">
+                <tr class="text-gray-700 dark:text-gray-400" th:if="${userList.getTotalElements() == 0}">
                   <td colspan="10" class="p-10 text-center text-gray-700 dark:text-gray-400">게시글이 존재하지 않습니다.</td>
                 </tr>
                 <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${userList}">
                   <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a th:href="@{/admin/user/detail/{email}(email=${list.email})}"><span th:text="${list.email}">cube001@gmail.com</span></a></td>
+                  <td class="px-4 py-3 text-sm"><a th:href="@{/admin/user/detail/{email}(email=${list.email}, searchType=${param.searchType}, keyword=${param.keyword})}"><span th:text="${list.email}">cube001@gmail.com</span></a></td>
                   <td class="px-4 py-3 text-sm text-center">
                     <span th:if="${list.userStatus.toString() == 'Y'}" th:text="정상"></span>
                     <span th:if="${list.userStatus.toString() == 'D'}" th:text="탈퇴"></span>
@@ -135,8 +135,11 @@
               <div class="col-start-2 col-end-6 text-center">
                 <nav aria-label="Page navigation example">
                   <ul class="inline-flex items-center -space-x-px flex items-baseline">
+
+
+
                     <li>
-                      <a href="#" class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                      <a th:href="@{/admin/user/list(searchType=${param.searchType}, keyword=${param.keyword}, page=${userList.getNumber() - 1})}" class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                         <i class="fas fa-angle-double-left"></i>
                       </a>
                     </li>
@@ -145,16 +148,18 @@
                         <i class="fas fa-chevron-left"></i>
                       </a>
                     </li>
-                    <li>
-                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        1
-                      </a>
+                    <li th:each="i : ${#numbers.sequence(0, userList.getTotalPages() - 1 )}">
+                      <span th:text="${i}"></span>
+                      <span th:text="${userList.getNumber() + i}"></span>
+<!--
+                      <a th:href="@{/admin/user/list(searchType=${param.searchType}, keyword=${param.keywrod}, page=${i})}"
+                         th:classappend="${i == (userList.getNumber() + 1) ? 'text-blue-600 bg-blue-50 border-blue-300' : ''}"
+                         class="text-blue-600 bg-blue-50 border-blue-300 py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300
+                                hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400
+                                dark:hover:bg-gray-700 dark:hover:text-white" th:text="${i + 1}">1</a>
                     </li>
-                    <li>
-                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        2
-                      </a>
-                    </li>
+-->
+<!--
                     <li>
                       <a href="#" aria-current="page" class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
                         3
@@ -165,38 +170,11 @@
                         4
                       </a>
                     </li>
-                    <li>
-                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        5
-                      </a>
+
                     </li>
+-->
                     <li>
-                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        6
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        7
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        8
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        9
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        10
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="block py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                      <a th:href="@{/admin/user/list(searchType=${param.searchKeyword}, keyword=${param.keyword}, page=${userList.getNumber() + 1})}" class="block py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                         <i class="fas fa-chevron-right"></i>
                       </a>
                     </li>

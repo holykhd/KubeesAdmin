@@ -77,7 +77,8 @@
 
             <!-- start -->
             <div class="px-6 grid gap-4">
-                <form th:action="@{/admin/partners/form}" th:object="${partnersForm}" method="post">
+                <form th:action="@{/admin/partners/edit}" th:object="${partnersForm}" method="post">
+                    <input type="hidden" name="partnerId" th:field="*{partnerId}">
                     <div class="grid gap-6">
                         <div class="w-full overflow-hidden rounded-lg shadow-xs">
                             <div class="w-full overflow-auto bg-white">
@@ -98,16 +99,14 @@
                                     </tr>
                                     <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                         <th class="px-4 py-3 bg-gray-50 w-48">업체 아이디</th>
-                                        <td class="px-4 py-3 bg-white">
-                                            <input type="text" id="partnerId" th:field="*{partnerId}" class="w-full form-input" minlength="4" maxlength="20">
-                                            <span id="partnerIdHelp" th:if="${#fields.hasErrors('partnerId')}" class="text-red-600">아이디를 입력해 주세요</span>
+                                        <td class="px-4 py-3 bg-white" th:text="${partnersForm.partnerId}"></td>
                                         </td>
                                     </tr>
 
                                     <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                         <th class="px-4 py-3 bg-gray-50 w-48">비밀번호</th>
                                         <td class="px-4 py-3 bg-white">
-                                            <input type="password" id="partnerPassword" th:field="*{partnerPassword}" class="w-full form-input" minlength="4" maxlength="20">
+                                            <input type="text" id="partnerPassword" th:field="*{partnerPassword}" class="w-full form-input" minlength="4" maxlength="20">
                                             <span id="partnerPasswordHelp" th:if="${#fields.hasErrors('partnerPassword')}" class="text-red-600">비밀번호를 입력해 주세요</span>
                                         </td>
                                     </tr>
@@ -141,7 +140,7 @@
                                         </button>
                                     </a>
                                     <button class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-red-700">
-                                        등록
+                                        저장
                                     </button>
                                 </div>
                             </div>

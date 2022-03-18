@@ -90,7 +90,6 @@ public class Account {
         this.createdAt = LocalDateTime.now();
         this.characterId = 0L;
         this.profileId = 0L;
-        this.roles = "ROLE_USER";
         this.userStatus = UserStatus.Y;
     }
 

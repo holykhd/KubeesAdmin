@@ -119,7 +119,7 @@
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                             <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${partnerList}">
                                 <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="javascript:void(0)"><span th:text="${list.partnerCompanyName}">업체명 1</span></a></td>
+                                <td class="px-4 py-3 text-sm"><a th:href="@{/admin/partners/detail/{partnerId} (partnerId=${list.partnerId})}"><span th:text="${list.partnerCompanyName}">업체명 1</span></a></td>
                                 <td class="px-4 py-3 text-center text-sm" th:text="${list.partnerId}">아이디</td>
                                 <td class="px-4 py-3 text-center text-xs" th:text="${list.partnerUserName}">김큐브</td>
                                 <td class="px-4 py-1 text-center text-sm" th:text="${list.partnerPhone}">010-2212-1111</td>

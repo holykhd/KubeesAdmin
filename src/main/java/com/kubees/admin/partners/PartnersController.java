@@ -1,6 +1,7 @@
 package com.kubees.admin.partners;
 
 import com.kubees.admin.auth.PrincipalDetails;
+import com.kubees.admin.partners.form.EmailDuplicatedForm;
 import com.kubees.admin.partners.form.PartnersForm;
 import com.kubees.admin.partners.form.PartnersFormValidator;
 import com.kubees.domain.Partners;
@@ -10,13 +11,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -47,6 +43,17 @@ public class PartnersController {
     }
 
     /**
+     * 파트너 상세정보
+     */
+    @GetMapping("/detail/{partnerId}")
+    public String detail(@PathVariable String partnerId, Model model, PartnersForm partnersForm) {
+        Partners partnerDetail = partnersService.getPartnerProcessor(partnerId);
+        model.addAttribute("partnerDetail", partnerDetail);
+
+        return "partners/detail";
+    }
+
+    /**
      * 등록화면으로 이동
      */
     @GetMapping("/form")
@@ -61,16 +68,12 @@ public class PartnersController {
      */
     @PostMapping("/form")
     public String create(@AuthenticationPrincipal PrincipalDetails principalDetails, @Valid PartnersForm partnersForm, BindingResult bindingResult) {
-        log.info("(partnersFormSSSS ={}", partnersForm);
         partnersForm.setPartnerCreatedUserId(principalDetails.getAccount().getUserId());
         if (bindingResult.hasErrors()) {
             return "partners/form";
         }
 
-        log.info("create Form start ={}", partnersForm);
-
-        Partners newPartners = partnersService.createPartnerProcessor(partnersForm, principalDetails);
-        log.info("newPartners = {}", newPartners);
+        partnersService.createPartnerProcessor(partnersForm, principalDetails);
 
         return "redirect:/admin/partners/list";
     }
@@ -78,10 +81,30 @@ public class PartnersController {
     /**
      * 파트너 정보 수정
      */
-    @GetMapping("/edit")
-    public String edit() {
-        return "form";
+    @GetMapping("/edit/{partnerId}")
+    public String editForm(@PathVariable String partnerId, Model model) {
+        PartnersForm partnersForm = partnersService.getPartner(partnerId);
+        model.addAttribute("partnersForm", partnersForm);
+        return "partners/edit";
     }
+
+    /**
+     * 파트너 정보 수정하기
+     */
+    @PostMapping("/edit")
+    public String edit(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                       PartnersForm partnersForm,
+                       @Valid EmailDuplicatedForm emailDuplicatedForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "partners/edit";
+        }
+
+        partnersForm.setPartnerUpdateUserId(principalDetails.getAccount().getUserId());
+        partnersService.updatePartnerProcessor(partnersForm, principalDetails);
+
+        return "partners/list";
+    }
+
 
     /**
      * 상품 목록

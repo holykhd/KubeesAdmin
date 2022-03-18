@@ -10,4 +10,8 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<Account, Long> {
     Account findByEmail(String email);
 
+    // 파트너 신규 가입시 회원 테이블에 회원이 등록되어있는지 확인
+    boolean existsByUserId(String partnerId);
+
+    Account findByUserId(String partnerId);
 }

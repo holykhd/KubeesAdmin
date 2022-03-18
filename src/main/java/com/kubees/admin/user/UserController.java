@@ -1,19 +1,19 @@
 package com.kubees.admin.user;
 
 import com.kubees.admin.account.AccountRepository;
-import com.kubees.admin.auth.PrincipalDetails;
 import com.kubees.admin.user.form.SearchForm;
 import com.kubees.domain.Account;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -28,11 +28,11 @@ public class UserController {
      * 회원 목록
      */
     @GetMapping("/list")
-    public String userList(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model, SearchForm searchForm){
+    public String userList(Model model, SearchForm searchForm, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
 
         model.addAttribute("searchForm", searchForm);
-        List<Account> searchUserList = userService.searchUserList(searchForm);
-        model.addAttribute("userList", searchUserList);
+        Page<Account> userList = userService.searchUserList(searchForm, pageable);
+        model.addAttribute("userList", userList);
         return "user/list";
     }
 

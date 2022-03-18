@@ -90,152 +90,24 @@
                   <th class="px-4 py-3"><input type="checkbox"></th>
                   <th class="px-4 py-3 text-center">제목</th>
                   <th class="px-4 py-3 text-center">등록일</th>
-                  <th class="px-4 py-3 text-center">노출상태</th>
+                  <th class="px-4 py-3 text-center">출력상태</th>
                   <th class="px-4 py-3 text-center">첨부 이미지</th>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                <tr class="text-gray-700 dark:text-gray-400">
+                <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${list}" >
                   <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/notice/detail">[공지] 2021 메타버스 개발자 경진대회 '출품작을 등록하면 팀간식을 쏜다' 이벤트 당첨자 발표</a></td>
-                  <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
+                  <td class="px-4 py-3 text-sm"><a th:href="@{/admin/notice/detail/{id}(id=${list.id})}"><span th:text="${list.title}">[공지] 2021 메타버스 개발자 경진대회 '출품작을 등록하면 팀간식을 쏜다' 이벤트 당첨자 발표</span></a></td>
+                  <td class="px-4 py-3 text-center text-sm" th:text="${#temporals.format(list.createdAt, 'yyyy-MM-dd HH:mm')}">2022.01.01 12:12:12</td>
                   <td class="px-4 py-3 text-center text-xs">
-                    <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                      숨김
+                    <button th:classappend="${list.openFlag == 'Y' ? 'bg-red-700' : 'bg-black'}" class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
+                      <span th:text="${list.openFlag == 'Y' ? '출력' : '숨김'}">
+                        숨김
+                      </span>
                     </button>
                   </td>
                   <td class="px-4 py-1 text-center text-sm">
-                    <div class="flex justify-center text-2xl"><i class="fas fa-file-image"></i></div>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/notice/detail">공지사항 제목을 출력합니다.</a></td>
-                  <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                  <td class="px-4 py-3 text-center text-xs">
-                    <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                      출력
-                    </button>
-                  </td>
-                  <td class="px-4 py-1 text-center text-sm">
-                    <div class="flex justify-center text-2xl"><i class="fas fa-file-image"></i></div>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/notice/detail">공지사항 제목을 출력합니다.</a></td>
-                  <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                  <td class="px-4 py-3 text-center text-xs">
-                    <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                      숨김
-                    </button>
-                  </td>
-                  <td class="px-4 py-1 text-center text-sm">
-                    <div class="flex justify-center text-2xl"><i class="fas fa-file-image"></i></div>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/notice/detail">공지사항 제목을 출력합니다.</a></td>
-                  <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                  <td class="px-4 py-3 text-center text-xs">
-                    <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                      출력
-                    </button>
-                  </td>
-                  <td class="px-4 py-1 text-center text-sm">
-                    <div class="flex justify-center text-2xl"><i class="fas fa-file-image"></i></div>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/notice/detail">공지사항 제목을 출력합니다.</a></td>
-                  <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                  <td class="px-4 py-3 text-center text-xs">
-                    <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                      숨김
-                    </button>
-                  </td>
-                  <td class="px-4 py-1 text-center text-sm">
-                    <div class="flex justify-center text-2xl"><i class="fas fa-file-image"></i></div>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/notice/detail">공지사항 제목을 출력합니다.</a></td>
-                  <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                  <td class="px-4 py-3 text-center text-xs">
-                    <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                      출력
-                    </button>
-                  </td>
-                  <td class="px-4 py-1 text-center text-sm">
-                    <div class="flex justify-center text-2xl"><i class="fas fa-file-image"></i></div>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/notice/detail">공지사항 제목을 출력합니다.</a></td>
-                  <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                  <td class="px-4 py-3 text-center text-xs">
-                    <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                      출력
-                    </button>
-                  </td>
-                  <td class="px-4 py-1 text-center text-sm">
-                    <div class="flex justify-center text-2xl"><i class="fas fa-file-image"></i></div>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/notice/detail">공지사항 제목을 출력합니다.</a></td>
-                  <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                  <td class="px-4 py-3 text-center text-xs">
-                    <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                      숨김
-                    </button>
-                  </td>
-                  <td class="px-4 py-1 text-center text-sm">
-                    <div class="flex justify-center text-2xl"><i class="fas fa-file-image"></i></div>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/notice/detail">공지사항 제목을 출력합니다.</a></td>
-                  <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                  <td class="px-4 py-3 text-center text-xs">
-                    <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                      숨김
-                    </button>
-                  </td>
-                  <td class="px-4 py-1 text-center text-sm">
-                    <div class="flex justify-center text-2xl"><i class="fas fa-file-image"></i></div>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/notice/detail">공지사항 제목을 출력합니다.</a></td>
-                  <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                  <td class="px-4 py-3 text-center text-xs">
-                    <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                      숨김
-                    </button>
-                  </td>
-                  <td class="px-4 py-1 text-center text-sm">
-                    <div class="flex justify-center text-2xl"><i class="fas fa-file-image"></i></div>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/notice/detail">공지사항 제목을 출력합니다.</a></td>
-                  <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                  <td class="px-4 py-3 text-center text-xs">
-                    <button class="w-20 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                      숨김
-                    </button>
-                  </td>
-                  <td class="px-4 py-1 text-center text-sm">
-                    <div class="flex justify-center text-2xl"><i class="fas fa-file-image"></i></div>
+                    <div class="flex justify-center text-2xl" th:if="${list.attachOid > 0}"><i class="fas fa-file-image"></i></div>
                   </td>
                 </tr>
               </tbody>
@@ -244,7 +116,7 @@
           <div class="grid grid-cols-6 gap-4 px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-6 dark:text-gray-400 dark:bg-gray-800">
             <div class="col-start-1 col-span-1">
               <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-gray-600 border border-transparent rounded-lg active:bg-gray-700 hover:bg-gray-800 focus:outline-none focus:shadow-outline-gray">
-                <a href="/admin/notice/edit">신규 등록</a>
+                <a th:href="@{/admin/notice/form}">신규 등록</a>
               </button>
             </div>
             <div class="col-start-2 col-end-6 text-center">

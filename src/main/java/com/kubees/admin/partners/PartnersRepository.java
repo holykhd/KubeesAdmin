@@ -7,4 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface PartnersRepository extends JpaRepository<Partners, Long> {
     boolean existsByPartnerId(String partnerId);
+
+    Partners findByPartnerId(String partnerId);
 }

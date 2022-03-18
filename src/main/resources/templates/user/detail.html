@@ -497,6 +497,13 @@
             <!-- end -->
           </div>
         </div>
+        <div class="col-start-1 col-span-1 flex justify-end p-4">
+          <a th:href="@{/admin/user/list(searchType=${param.searchType}, keyword=${param.keyword})}">
+            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              목록
+            </button>
+          </a>
+        </div>
       </div>
     </main>
     <div th:replace="layout/fragment :: footer"></div>

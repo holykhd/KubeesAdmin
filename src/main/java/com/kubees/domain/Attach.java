@@ -14,7 +14,7 @@ public class Attach {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "attach_oid")
-    private long attachOid;                     // 첨부파일 고유번호
+    private Long attachOid;                     // 첨부파일 고유번호
 
     @Column(name = "user_email")
     private String userEmail;                   // 첨부파일 등록자 이메일

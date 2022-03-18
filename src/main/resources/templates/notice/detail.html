@@ -56,7 +56,6 @@
       </div>
       <!-- end -->
 
-
       <!-- start -->
       <div class="px-6 grid gap-4">
 
@@ -68,12 +67,12 @@
                 <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                   <th class="px-4 py-3 bg-gray-50 w-32">제목</th>
                   <td class="px-4 py-3 bg-white">
-                    <span class="font-bold text-lg">공지사항 제목을 출력합니다.</span>
+                    <span class="font-bold text-lg" th:text="${noticeDetail.title}">공지사항 제목을 출력합니다.</span>
                   </td>
                 </tr>
                 <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                   <th class="px-4 py-3 bg-gray-50 w-32">등록일</th>
-                  <td class="px-4 py-3 bg-white">
+                  <td class="px-4 py-3 bg-white" th:text="${#temporals.format(noticeDetail.createdAt, 'yyyy-MM-dd HH:mm')}">
                     2021-12-12 18:23
                   </td>
                 </tr>
