@@ -3,16 +3,31 @@ package com.kubees.admin.partners;
 import com.kubees.admin.account.AccountRepository;
 import com.kubees.admin.auth.PrincipalDetails;
 import com.kubees.admin.partners.form.PartnersForm;
+import com.kubees.admin.partners.form.SearchForm;
 import com.kubees.domain.Account;
 import com.kubees.domain.Partners;
+import com.kubees.domain.QPartners;
+import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.kubees.domain.QAccount.account;
+import static com.kubees.domain.QPartners.partners;
 
 @Slf4j
 @Service
@@ -22,6 +37,10 @@ public class PartnersService {
     private final PartnersRepository partnersRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AccountRepository accountRepository;
+
+    @PersistenceContext
+    EntityManager em;
+    JPAQueryFactory queryFactory;
 
     /**
      * 파트너 정보 등록하기
@@ -87,8 +106,6 @@ public class PartnersService {
     }
 
     private Partners updatePartner(PartnersForm partnersForm, PrincipalDetails principalDetails, Partners partners) {
-        log.info("partnersForm ={}", partnersForm);
-        log.info("partners.partnerId ={}", partners.getPartnerId());
         partners.setPartnerCompanyName(partnersForm.getPartnerCompanyName());
 
         // 회원 아이디는 수정할 유저의 아이디를 넣어준다.
@@ -114,17 +131,48 @@ public class PartnersService {
     /**
      * 파트너 목록 가져오기
      */
-    public List<Partners> getPartnerList() {
-        return partnersRepository.findAll();
+    @Transactional
+    public Page<Partners> getPartnerList(SearchForm searchForm, Pageable pageable) {
+        queryFactory = new JPAQueryFactory(em);
+        QueryResults<Partners> results = queryFactory.selectFrom(partners)
+                .where(searchTypeContain(searchForm.getSearchType(), searchForm.getKeyword()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+        List<Partners> content = results.getResults();
+        long total = results.getTotal();
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    // partnerCompanyName(파트너 업체명), partnerId(파트너 아이디), partnerUserName(파트너 이름), partnerPhone(파트너 연락처)
+    private BooleanExpression searchTypeContain(String searchTypeCondition, String keywordCondition) {
+        BooleanExpression booleanExpression = null;
+        keywordCondition = keywordCondition != null ? keywordCondition : "";
+
+        if (searchTypeCondition != null && searchTypeCondition.equals("partnerCompanyName")) {
+            booleanExpression = searchTypeCondition != null ? partners.partnerCompanyName.contains(keywordCondition) : null;
+        }
+        if (searchTypeCondition != null && searchTypeCondition.equals("partnerId")) {
+            booleanExpression = searchTypeCondition != null ? partners.partnerId.contains(keywordCondition) : null;
+        }
+        if (searchTypeCondition != null && searchTypeCondition.equals("partnerUserName")) {
+            booleanExpression = searchTypeCondition != null ? partners.partnerUserName.contains(keywordCondition) : null;
+        }
+        if (searchTypeCondition != null && searchTypeCondition.equals("partnerPhone")) {
+            booleanExpression = searchTypeCondition != null ? partners.partnerPhone.contains(keywordCondition) : null;
+        }
+        return booleanExpression;
     }
 
     /**
      * 파트너 상세 정보 가져오기
      */
+    @Transactional
     public Partners getPartnerProcessor(String partnerId) {
         return partnersRepository.findByPartnerId(partnerId);
     }
 
+    @Transactional
     public PartnersForm getPartner(String partnerId) {
         Partners partners = partnersRepository.findByPartnerId(partnerId);
 

@@ -27,4 +27,5 @@ public class NoticeForm {
     private String publishMinutes;
 
     private String createdId;
+
 }

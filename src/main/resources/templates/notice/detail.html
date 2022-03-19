@@ -78,17 +78,17 @@
                 </tr>
                 <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                   <th class="px-4 py-3 bg-gray-50 w-32">내용</th>
-                  <td class="px-4 py-3 bg-white">
-                    공지사항 내용을 보여줍니다.
+                  <td class="px-4 py-3 bg-white" th:utext="${noticeDetail.contents}">
+
                   </td>
                 </tr>
                 </tbody>
               </table>
               <div class="flex justify-center my-4 gap-4">
-                <a href="/admin/notice/list">
+                <a th:href="@{/admin/notice/list}">
                   <button class="bg-gray-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">목록</button>
                 </a>
-                <a href="/admin/notice/edit">
+                <a th:href="@{/admin/notice/edit/{id} (id=${noticeDetail.id})}">
                 <button class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-red-700">수정</button>
                 </a>
               </div>

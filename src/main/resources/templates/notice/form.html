@@ -99,18 +99,10 @@
 -->
 
                                     <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                                        <th class="px-4 py-3 bg-gray-50 w-32">첨부파일</th>
+                                        <th class="px-4 py-3 bg-gray-50 w-32">내용</th>
                                         <td class="px-4 py-3 bg-white">
-                                            <textarea th:field="*{contents}" cols="30" rows="10"></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                                        <th class="px-4 py-3 bg-gray-50 w-32">첨부파일</th>
-                                        <td class="px-4 py-3 bg-white">
-                                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                   for="user_avatar"></label>
-                                            <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                                   aria-describedby="user_avatar_help" id="user_avatar" type="file">
+                                            <textarea th:field="*{contents}" cols="30" rows="10"
+                                                      class="w-full h-36 form-input"></textarea>
                                         </td>
                                     </tr>
                                     <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
@@ -247,8 +239,6 @@
             </div>
             <!-- end -->
         </main>
-        <script th:src="@{/js/toastui-editor-all.min.js}"></script>
-
         <link th:href="@{/css/customBootstrap.css}" rel="stylesheet">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>

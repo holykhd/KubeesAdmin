@@ -110,7 +110,6 @@
                 </div>
             </div>
             <!-- end -->
-
             <div class="px-6 mx-auto grid">
                 <!-- 상단 타이틀 & 검색영역 -->
                 <!-- New Table -->
@@ -128,94 +127,20 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            <tr class="text-gray-700 dark:text-gray-400">
+<!--
+                            <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${qnaList}">
                                 <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">서비스 문의</td>
-                                <td class="px-4 py-3 text-center text-sm">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">답변대기</td>
+                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail" th:text="${list.title}">문의 제목이 출력되는 공간입니다.</a></td>
+                                <td class="px-4 py-3 text-center text-xs">
+                                    <span th:if="${list.type.toString() == 'QNA_SERVICE'}" th:text="서비스 문의">서비스 문의</span>
+                                    <span th:if="${list.type.toString() == 'QNA_LOGIN'}" th:text="로그인 문의">서비스 문의</span>
+                                    <span th:if="${list.type.toString() == 'QNA_ETC'}" th:text="기타 문의">서비스 문의</span>
+                                </td>
+                                <td class="px-4 py-3 text-center text-sm" th:text="${list.email}">cubees01@gmail.com/홍길동</td>
+                                <td class="px-4 py-3 text-center text-sm" th:text="${list.createdAt}">2022.01.01 12:12:12</td>
+                                <td class="px-4 py-3 text-center text-sm" th:text="${list.answer != null ? '답변완료' : '답변대기'}">답변대기</td>
                             </tr>
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">서비스 문의</td>
-                                <td class="px-4 py-3 text-center text-sm">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">답변대기</td>
-                            </tr>
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">서비스 문의</td>
-                                <td class="px-4 py-3 text-center text-sm">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">답변대기</td>
-                            </tr>
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">서비스 문의</td>
-                                <td class="px-4 py-3 text-center text-sm">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">답변대기</td>
-                            </tr>
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">서비스 문의</td>
-                                <td class="px-4 py-3 text-center text-sm">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">답변대기</td>
-                            </tr>
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">서비스 문의</td>
-                                <td class="px-4 py-3 text-center text-sm">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">답변대기</td>
-                            </tr>
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">서비스 문의</td>
-                                <td class="px-4 py-3 text-center text-sm">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">답변대기</td>
-                            </tr>
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">서비스 문의</td>
-                                <td class="px-4 py-3 text-center text-sm">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">답변대기</td>
-                            </tr>
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">서비스 문의</td>
-                                <td class="px-4 py-3 text-center text-sm">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">답변대기</td>
-                            </tr>
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">서비스 문의</td>
-                                <td class="px-4 py-3 text-center text-sm">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">답변대기</td>
-                            </tr>
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">서비스 문의</td>
-                                <td class="px-4 py-3 text-center text-sm">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">답변대기</td>
-                            </tr>
+-->
                             </tbody>
                         </table>
                     </div>

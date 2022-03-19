@@ -28,7 +28,7 @@ public class UserController {
      * 회원 목록
      */
     @GetMapping("/list")
-    public String userList(Model model, SearchForm searchForm, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+    public String userList(Model model, SearchForm searchForm, @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable){
 
         model.addAttribute("searchForm", searchForm);
         Page<Account> userList = userService.searchUserList(searchForm, pageable);

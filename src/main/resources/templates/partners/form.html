@@ -85,7 +85,10 @@
                                     <tbody>
                                     <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                         <th class="px-4 py-3 bg-gray-50 w-48">등록자 아이디</th>
-                                        <td class="px-4 py-3 bg-white" sec:authentication="name">
+<!--                                        <td class="px-4 py-3 bg-white" sec:authentication="name">-->
+                                        <td class="px-4 py-3 bg-white">
+                                            <input type="text" id="partnerCreatedUserId" name = "partnerCreatedUserId"
+                                                   class="w-full form-input" minlength="2" maxlength="20" th:value="${#authentication.name}" readonly>
 
                                         </td>
                                     </tr>

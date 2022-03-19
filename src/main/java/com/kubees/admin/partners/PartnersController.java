@@ -4,9 +4,14 @@ import com.kubees.admin.auth.PrincipalDetails;
 import com.kubees.admin.partners.form.EmailDuplicatedForm;
 import com.kubees.admin.partners.form.PartnersForm;
 import com.kubees.admin.partners.form.PartnersFormValidator;
+import com.kubees.admin.partners.form.SearchForm;
 import com.kubees.domain.Partners;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,8 +40,11 @@ public class PartnersController {
      * 파트너 목록 조회
      */
     @GetMapping("/list")
-    public String list(Model model) {
-        List<Partners> partnerList = partnersService.getPartnerList();
+    public String list(Model model, SearchForm searchForm,
+                       @PageableDefault(size = 10, sort = "partnerCreated", direction = Sort.Direction.DESC)
+                               Pageable pageable) {
+        model.addAttribute("searchForm", searchForm);
+        Page<Partners> partnerList = partnersService.getPartnerList(searchForm, pageable);
         model.addAttribute("partnerList", partnerList);
 
         return "partners/list";
@@ -63,13 +71,13 @@ public class PartnersController {
     }
 
     /**
-     *
      * 파트너 등록
      */
     @PostMapping("/form")
     public String create(@AuthenticationPrincipal PrincipalDetails principalDetails, @Valid PartnersForm partnersForm, BindingResult bindingResult) {
         partnersForm.setPartnerCreatedUserId(principalDetails.getAccount().getUserId());
         if (bindingResult.hasErrors()) {
+            log.info("partners error ={}", bindingResult.getAllErrors());
             return "partners/form";
         }
 

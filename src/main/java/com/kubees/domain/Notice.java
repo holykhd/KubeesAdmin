@@ -14,11 +14,12 @@ public class Notice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long attachOid;             // 첨부파일 고유번호
+//    private Long attachOid;             // 첨부파일 고유번호
 
     private String title;               // 제목
 
-    @Lob
+//    @Lob
+    @Column(columnDefinition = "TEXT")
     private String contents;             // 내용
 
     private String publishTime;         // 발행시간(현재 : now, 예약 : reservation)

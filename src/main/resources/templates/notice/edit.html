@@ -75,156 +75,163 @@
 
             <!-- start -->
             <div class="px-6 grid gap-4">
-
-                <div class="grid gap-6">
-                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                        <div class="w-full overflow-auto bg-white">
-                            <table class="w-full">
-                                <tbody>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3 bg-gray-50 w-32">제목</th>
-                                    <td class="px-4 py-3 bg-white">
-                                        <input type="text" class="w-full form-input">
-                                    </td>
-                                </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3 bg-gray-50 w-32">내용</th>
-                                    <td class="px-4 py-3 bg-white">
-                                        <textarea name="" id="" cols="30" rows="10"
-                                                  class="w-full h-36 form-input"></textarea>
-                                    </td>
-                                </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3 bg-gray-50 w-32">첨부파일</th>
-                                    <td class="px-4 py-3 bg-white">
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                               for="user_avatar"></label>
-                                        <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                               aria-describedby="user_avatar_help" id="user_avatar" type="file">
-                                    </td>
-                                </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3 bg-gray-50 w-32">발행시간</th>
-                                    <td class="px-4 py-3 bg-white">
-                                        <div class="flex justify-between">
-                                            <div class="grid lg:grid-cols-8 gap-4 flex justify-between items-center">
-                                                <div>
-                                                    <!-- radio button -->
-                                                    <fieldset>
-                                                        <legend class="sr-only">현재</legend>
-                                                        <div class="flex items-center">
-                                                            <input id="country-option-1" type="radio" name="noticeTime"
-                                                                   value="now"
-                                                                   class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                                                                   aria-labelledby="country-option-1"
-                                                                   aria-describedby="country-option-1" checked>
-                                                            <label for="country-option-1"
-                                                                   class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                                                현재
-                                                            </label>
-                                                        </div>
-                                                    </fieldset>
-                                                    <!-- radio button -->
-                                                </div>
-                                                <div class="">
-                                                    <!-- radio button -->
-                                                    <fieldset>
-                                                        <legend class="sr-only">현재</legend>
-                                                        <div class="flex items-center">
-                                                            <input id="country-option-2" type="radio" name="noticeTime"
-                                                                   value="reservation"
-                                                                   class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                                                                   aria-labelledby="country-option-2"
-                                                                   aria-describedby="country-option-2">
-                                                            <label for="country-option-2"
-                                                                   class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                                                예약
-                                                            </label>
-                                                        </div>
-                                                    </fieldset>
-                                                    <!-- radio button -->
-                                                </div>
-                                                <div class="lg:col-span-6 grid lg:grid-cols-3 lg:gap-2">
-                                                    <div class="relative">
-                                                        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
-                                                        </div>
-                                                        <input id="noticeDatepicker" datepicker
-                                                               inline-datepicker
-                                                               type="text"
-                                                               autocomplete="off"
-                                                               datepicker-buttons datepicker-format="yyyy-mm-dd"
-                                                               datepicker-orientation="bottom left"
-                                                               placeholder="날짜 선택"
-                                                               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <form th:action="@{/admin/notice/edit}" th:object="${noticeForm}" method="post">
+                    <div class="grid gap-6">
+                        <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                            <div class="w-full overflow-auto bg-white">
+                                <table class="w-full">
+                                    <tbody>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-32">제목</th>
+                                        <td class="px-4 py-3 bg-white">
+                                            <input type="text" class="w-full form-input" th:field="*{title}">
+                                        </td>
+                                    </tr>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-32">내용</th>
+                                        <td class="px-4 py-3 bg-white">
+                                            <textarea th:field="*{contents}" cols="30" rows="10"
+                                                      class="w-full h-36 form-input"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-32">발행시간</th>
+                                        <td class="px-4 py-3 bg-white">
+                                            <div class="flex justify-between">
+                                                <div class="grid lg:grid-cols-8 gap-4 flex justify-between items-center">
+                                                    <div>
+                                                        <!-- radio button -->
+                                                        <fieldset>
+                                                            <legend class="sr-only">현재</legend>
+                                                            <div class="flex items-center">
+                                                                <input id="country-option-1" type="radio" name="noticeTime"
+                                                                       value="now"
+                                                                       class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                                                                       aria-labelledby="country-option-1"
+                                                                       aria-describedby="country-option-1" checked>
+                                                                <label for="country-option-1"
+                                                                       class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                                                    현재
+                                                                </label>
+                                                            </div>
+                                                        </fieldset>
+                                                        <!-- radio button -->
                                                     </div>
-
-                                                    <div class="flex justify-between gap-2 grid lg:grid-cols-2">
-                                                        <div>
-                                                            <label for="hour"
-                                                                   class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">시간선택</label>
-                                                            <select id="hour"
-                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                                <option>시간 선택</option>
-                                                                <option value="00">00시</option>
-                                                                <option value="01">01시</option>
-                                                                <option value="02">02시</option>
-                                                                <option value="03">03시</option>
-                                                                <option value="04">04시</option>
-                                                                <option value="05">05시</option>
-                                                                <option value="06">06시</option>
-                                                                <option value="07">07시</option>
-                                                                <option value="08">08시</option>
-                                                                <option value="09">09시</option>
-                                                                <option value="10">10시</option>
-                                                                <option value="11">11시</option>
-                                                                <option value="12">12시</option>
-                                                            </select>
-                                                        </div>
-                                                        <div>
-                                                            <label for="minutes"
-                                                                   class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">분
-                                                                선택</label>
-                                                            <select id="minutes"
-                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                                <option>분 선택</option>
-                                                                <option value="00">00시</option>
-                                                                <option value="10">10시</option>
-                                                                <option value="20">20시</option>
-                                                                <option value="30">30시</option>
-                                                                <option value="40">40시</option>
-                                                                <option value="50">50시</option>
-                                                            </select>
-                                                        </div>
+                                                    <div class="">
+                                                        <!-- radio button -->
+                                                        <fieldset>
+                                                            <legend class="sr-only">현재</legend>
+                                                            <div class="flex items-center">
+                                                                <input id="country-option-2" type="radio" name="noticeTime"
+                                                                       value="reservation"
+                                                                       class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                                                                       aria-labelledby="country-option-2"
+                                                                       aria-describedby="country-option-2">
+                                                                <label for="country-option-2"
+                                                                       class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                                                    예약
+                                                                </label>
+                                                            </div>
+                                                        </fieldset>
+                                                        <!-- radio button -->
                                                     </div>
-                                                    <div class="text-green-400 font-semibold flex items-center">* 설정한
-                                                        시각으로 예약 등록 합니다.
+                                                    <div class="lg:col-span-6 grid lg:grid-cols-3 lg:gap-2">
+                                                        <div class="relative">
+                                                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                                                            </div>
+                                                            <input id="noticeDatepicker" datepicker
+                                                                   inline-datepicker
+                                                                   type="text"
+                                                                   autocomplete="off"
+                                                                   datepicker-buttons datepicker-format="yyyy-mm-dd"
+                                                                   datepicker-orientation="bottom left"
+                                                                   placeholder="날짜 선택"
+                                                                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                        </div>
+                                                        <div class="flex justify-between gap-2 grid lg:grid-cols-2">
+                                                            <div>
+                                                                <label for="hour"
+                                                                       class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">시간선택</label>
+                                                                <select id="hour"
+                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                    <option>시간 선택</option>
+                                                                    <option value="00">00시</option>
+                                                                    <option value="01">01시</option>
+                                                                    <option value="02">02시</option>
+                                                                    <option value="03">03시</option>
+                                                                    <option value="04">04시</option>
+                                                                    <option value="05">05시</option>
+                                                                    <option value="06">06시</option>
+                                                                    <option value="07">07시</option>
+                                                                    <option value="08">08시</option>
+                                                                    <option value="09">09시</option>
+                                                                    <option value="10">10시</option>
+                                                                    <option value="11">11시</option>
+                                                                    <option value="12">12시</option>
+                                                                </select>
+                                                            </div>
+                                                            <div>
+                                                                <label for="minutes"
+                                                                       class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">분
+                                                                    선택</label>
+                                                                <select id="minutes"
+                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                    <option>분 선택</option>
+                                                                    <option value="00">00시</option>
+                                                                    <option value="10">10시</option>
+                                                                    <option value="20">20시</option>
+                                                                    <option value="30">30시</option>
+                                                                    <option value="40">40시</option>
+                                                                    <option value="50">50시</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-green-400 font-semibold flex items-center">* 설정한
+                                                            시각으로 예약 등록 합니다.
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div class="flex justify-center my-4 gap-4">
-                                <a href="/admin/notice/detail">
-                                    <button class="bg-gray-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">
-                                        취소
-                                    </button>
-                                </a>
-                                <a href="/admin/notice/detail">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="flex justify-center my-4 gap-4">
+                                    <a th:href="@{/admin/notice/detail/{id}(id=${noticeForm.id})}">
+                                        <button class="bg-gray-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">
+                                            취소
+                                        </button>
+                                    </a>
                                     <button class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-red-700">
-                                        등록
+                                        저장
                                     </button>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
             <!-- end -->
         </main>
+        <link th:href="@{/css/customBootstrap.css}" rel="stylesheet">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+        <!-- include summernote css/js-->
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('#contents').summernote({
+                    height: 300,                 // set editor height
+                    minHeight: null,             // set minimum height of editor
+                    maxHeight: null,             // set maximum height of editor
+                    focus: true                  // set focus to editable area after initializing summernote
+                });
+            });
+        </script>
         <div th:replace="layout/fragment :: footer"></div>
     </div>
 </div>

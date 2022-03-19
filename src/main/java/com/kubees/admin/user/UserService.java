@@ -2,12 +2,12 @@ package com.kubees.admin.user;
 
 import com.kubees.admin.user.form.SearchForm;
 import com.kubees.domain.Account;
+import com.kubees.domain.UserRole;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -34,13 +34,18 @@ public class UserService {
 
         // searchType과 keyword로 검색하기
         QueryResults<Account> results = queryFactory.selectFrom(account)
-                .where(searchTypeContain(searchForm.getSearchType(), searchForm.getKeyword()))
+                .where(searchTypeContain(searchForm.getSearchType(), searchForm.getKeyword()), roleUser(UserRole.ROLE_USER))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
         List<Account> content = results.getResults();
         long total = results.getTotal();
         return new PageImpl<>(content, pageable, total);
+    }
+
+    // 회원 정보는 ROLE_USER 만 출력되게 한다.
+    private BooleanExpression roleUser(UserRole roleUser) {
+        return account.roles.eq(String.valueOf(roleUser));
     }
 
     // 연락처(phone), 이름(name), 닉네임(nickname), 계정(email)

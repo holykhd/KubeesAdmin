@@ -2,10 +2,15 @@ package com.kubees.admin.notice;
 
 import com.kubees.admin.auth.PrincipalDetails;
 import com.kubees.admin.notice.form.NoticeForm;
+import com.kubees.admin.notice.form.SearchForm;
 import com.kubees.domain.Account;
 import com.kubees.domain.Notice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,8 +42,9 @@ public class NoticeController {
      * 공지사항 목록 조회
      */
     @GetMapping("/list")
-    public String userList(Model model) {
-        List<Notice> noticeList = noticeService.getNoticeProcessor();
+    public String noticeList(Model model, SearchForm searchForm, @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        model.addAttribute("searchForm", searchForm);
+        Page<Notice> noticeList = noticeService.getNoticeProcessor(searchForm, pageable);
         model.addAttribute("list", noticeList);
         return "notice/list";
     }
@@ -72,7 +78,7 @@ public class NoticeController {
      * 공지사항 상세 화면 조회
      */
     @GetMapping("/detail/{id}")
-    public String userDetail(@PathVariable Long id, Model model) {
+    public String noticeDetail(@PathVariable Long id, Model model) {
         log.info("detail id ={}", id);
         Notice noticeDetail = noticeService.getNoticeDetailProcessor(id);
         log.info("noticeDetail ={}", noticeDetail);
@@ -82,12 +88,25 @@ public class NoticeController {
     }
 
     /**
-     * 공지사항 등록 화면
+     * 공지사항 수정 화면
      */
-    @GetMapping("/edit")
-    public String userEdit() {
+    @GetMapping("/edit/{id}")
+    public String noticeEditForm(@PathVariable Long id, Model model) {
+        NoticeForm noticeForm = noticeService.findById(id);
+        model.addAttribute("noticeForm", noticeForm);
         return "notice/edit";
     }
 
+
+    /**
+     * 공지사항 수정
+     */
+    @PostMapping("/edit")
+    public String noticeEdit(@AuthenticationPrincipal PrincipalDetails principalDetails, @Valid NoticeForm noticeForm, BindingResult bindingResult) {
+
+        noticeService.updateNoticeProcessor(principalDetails, noticeForm);
+        log.info("notice Edit");
+        return "redirect:/admin/notice/list";
+    }
 
 }
