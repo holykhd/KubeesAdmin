@@ -1,5 +1,6 @@
 package com.kubees.domain;
 
+import com.kubees.domain.enumType.UserStatus;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 

@@ -4,12 +4,12 @@ import com.kubees.admin.auth.PrincipalDetails;
 import com.kubees.admin.notice.form.NoticeForm;
 import com.kubees.admin.notice.form.SearchForm;
 import com.kubees.domain.Notice;
+import com.kubees.domain.QNotice;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import static com.kubees.domain.QNotice.notice;
 
@@ -44,11 +44,8 @@ public class NoticeService {
 
         noticeRepository.save(notice);
 
-
-        // 글 등록 (즉시 등록, 예약등록기능)
+        // TODO LIST 글 등록 (즉시 등록, 예약등록기능)
         // 글 바로 등록하기
-
-        // 첨부파일 등록
     }
 
     public Page<Notice> getNoticeProcessor(SearchForm searchForm, Pageable pageable) {
@@ -57,6 +54,7 @@ public class NoticeService {
         QueryResults<Notice> resultList = queryFactory.selectFrom(notice)
                 .where(searchTypeContain(searchForm.getSearchType(), searchForm.getKeyword()))
                 .offset(pageable.getOffset())
+                .orderBy(notice.id.desc())
                 .limit(pageable.getPageSize())
                 .fetchResults();
         List<Notice> noticeList = resultList.getResults();
@@ -122,5 +120,15 @@ public class NoticeService {
         notice.setPublishMinutes(noticeForm.getPublishMinutes());
         notice.setCreatedAt(LocalDateTime.now());
         notice.setUpdatedId(principalDetails.getAccount().getUserId());
+    }
+
+    @Transactional
+    public Notice changeNoticeFlagProcessor(Notice notice, String openFlag) {
+        if (openFlag.equals("Y")) {
+            notice.setOpenFlag("N");
+        } else {
+            notice.setOpenFlag("Y");
+        }
+        return notice;
     }
 }

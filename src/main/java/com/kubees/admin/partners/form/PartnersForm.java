@@ -1,6 +1,6 @@
 package com.kubees.admin.partners.form;
 
-import com.kubees.domain.PartnerStatus;
+import com.kubees.domain.enumType.PartnerStatus;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 

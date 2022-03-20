@@ -1,5 +1,5 @@
-package com.kubees.domain;
+package com.kubees.domain.enumType;
 
-public enum AnswerStatus {
+public enum QnAAnswerStatus {
     WAITING, DONE   //WAITING : 답변대기, DONE : 답변완료
 }

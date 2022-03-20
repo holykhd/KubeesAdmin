@@ -2,7 +2,7 @@ package com.kubees.admin.user;
 
 import com.kubees.admin.user.form.SearchForm;
 import com.kubees.domain.Account;
-import com.kubees.domain.UserRole;
+import com.kubees.domain.enumType.UserRole;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,6 +29,7 @@ public class UserService {
     EntityManager em;
     JPAQueryFactory queryFactory;
 
+    @Transactional
     public Page<Account> searchUserList(SearchForm searchForm, Pageable pageable) {
 
         queryFactory = new JPAQueryFactory(em);

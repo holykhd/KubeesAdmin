@@ -1,9 +1,20 @@
 package com.kubees.domain;
 
+import com.kubees.domain.enumType.QnAAnswerStatus;
+import com.kubees.domain.enumType.QnATypeStatus;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+import static javax.persistence.EnumType.STRING;
+
+@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class QnA {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +29,12 @@ public class QnA {
     private String question;                // 문의내용
 
 
-    @Enumerated(EnumType.STRING)
-    private AnswerStatus answer;            // 답변
+    private String answer;                  // 답변
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
+    private QnAAnswerStatus answerStatus;   // 답변상태
+
+    @Enumerated(STRING)
     private QnATypeStatus type;             // 문의유형
 
     private int hit;                        // 조회수
@@ -46,7 +59,7 @@ public class QnA {
     public void LocalDateTime() {
         this.createdAt = LocalDateTime.now();
         this.hit = 0;
-        this.answer = AnswerStatus.WAITING;
+        this.answerStatus = QnAAnswerStatus.WAITING;
     }
 
 }

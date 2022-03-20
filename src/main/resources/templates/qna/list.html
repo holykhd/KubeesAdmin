@@ -26,7 +26,7 @@
         <div th:replace="layout/sub-header-fragment ::sub-header-qna"></div>
         <main class="h-full overflow-y-auto">
             <!-- start -->
-            <div class="px-6 grid md:grid-cols-4 gap-4">
+            <div class="px-6 grid md:grid-cols-2 gap-4">
                 <!-- Breadcrumb start -->
                 <div class="text-xl font-semibold flex items-center h-16">
                     <nav class="flex" aria-label="Breadcrumb">
@@ -69,45 +69,50 @@
                     </nav>
                 </div>
                 <!-- Breadcrumb end -->
-                <div class="p-2 md:col-span-3 grid md:grid-cols-6">
-                    <div class="col-span-2"></div>
-                    <div class="grid md:grid-cols-5 gap-2 md:col-span-4">
-                        <div>
-                            <label for="countries"
-                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 hidden">진행상태
-                                선택</label>
-                            <select id="countries"
-                                    class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option>진행상태</option>
-                                <option>답변대기</option>
-                                <option>답변완료</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="countries"
-                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 hidden">검색항목
-                                선택</label>
-                            <select id="countries"
-                                    class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option>문의유형</option>
-                                <option>서비스 문의</option>
-                                <option>로그인 문의</option>
-                                <option>기타 문의</option>
-                            </select>
-                        </div>
-                        <div class="md:col-span-2">
-                            <input class="w-full h-full py-3 pl-2.5 pr-2 text-sm placeholder-gray-600 bg-white border border-gray-300 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300"
-                                   type="text"
-                                   placeholder="검색어 입력"
-                                   aria-label="Search"/>
-                        </div>
-                        <div class="md:col-span-1">
-                            <button class="md:w-20 w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                                검색
-                            </button>
+                <form th:action="@{/admin/qna/list}" th:object="${searchForm}">
+                    <div class="p-2 md:col-span-3 grid md:grid-cols-6">
+                        <div class="col-span-2"></div>
+                        <div class="grid md:grid-cols-7 gap-2 md:col-span-4">
+                            <div class="md:col-span-2">
+                                <label for="countriesStatus"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 hidden">진행상태
+                                    선택</label>
+                                <select id="countriesStatus"
+                                        th:field="*{answerStatus}"
+                                        class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="">답변상태</option>
+                                    <option value="WAITING">답변대기</option>
+                                    <option value="DONE">답변완료</option>
+                                </select>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label for="countries"
+                                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 hidden">검색항목
+                                    선택</label>
+                                <select id="countries"
+                                        th:field="*{searchType}"
+                                        class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="">문의유형</option>
+                                    <option value="QNA_SERVICE">서비스 문의</option>
+                                    <option value="QNA_LOGIN">로그인 문의</option>
+                                    <option value="QNA_ETC">기타 문의</option>
+                                </select>
+                            </div>
+                            <div class="md:col-span-2">
+                                <input class="w-full h-full py-3 pl-2.5 pr-2 text-sm placeholder-gray-600 bg-white border border-gray-300 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300"
+                                       type="text"
+                                       th:field="*{keyword}"
+                                       placeholder="검색어 입력"
+                                       aria-label="Search"/>
+                            </div>
+                            <div class="md:col-span-1">
+                                <button class="md:w-20 w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
+                                    검색
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
             <!-- end -->
             <div class="px-6 mx-auto grid">
@@ -127,109 +132,49 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-<!--
                             <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${qnaList}">
                                 <td class="px-4 py-3"><input type="checkbox"></td>
                                 <td class="px-4 py-3 text-sm"><a href="/admin/qna/detail" th:text="${list.title}">문의 제목이 출력되는 공간입니다.</a></td>
-                                <td class="px-4 py-3 text-center text-xs">
-                                    <span th:if="${list.type.toString() == 'QNA_SERVICE'}" th:text="서비스 문의">서비스 문의</span>
-                                    <span th:if="${list.type.toString() == 'QNA_LOGIN'}" th:text="로그인 문의">서비스 문의</span>
-                                    <span th:if="${list.type.toString() == 'QNA_ETC'}" th:text="기타 문의">서비스 문의</span>
+                                <td class="px-4 py-3 text-center text-sm">
+                                    <span th:if="${list.type.toString() == 'QNA_SERVICE'}" th:utext="'서비스 문의'">서비스 문의</span>
+                                    <span th:if="${list.type.toString() == 'QNA_LOGIN'}" th:utext="'로그인 문의'">서비스 문의</span>
+                                    <span th:if="${list.type.toString() == 'QNA_ETC'}" th:utext="'기타 문의'">서비스 문의</span>
                                 </td>
                                 <td class="px-4 py-3 text-center text-sm" th:text="${list.email}">cubees01@gmail.com/홍길동</td>
-                                <td class="px-4 py-3 text-center text-sm" th:text="${list.createdAt}">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm" th:text="${list.answer != null ? '답변완료' : '답변대기'}">답변대기</td>
+                                <td class="px-4 py-3 text-center text-sm" th:text="${#temporals.format(list.createdAt, 'yyyy-MM-dd HH:mm')}">2022.01.01 12:12:12</td>
+                                <td class="px-4 py-3 text-center text-sm flex justify-center">
+                                    <button th:classappend="${list.answerStatus.toString() == 'WAITING' ? 'bg-red-700 hover:bg-red-800' : 'bg-black'}"
+                                            class="bg-red-700 hover:bg-red-800 block text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5
+                                            text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                            type="button">
+                                        <span th:text="${list.answerStatus.toString() == 'WAITING' ? '답변대기' : '답변완료'}">답변대기</span>
+                                    </button>
+                                </td>
                             </tr>
--->
                             </tbody>
                         </table>
                     </div>
                     <div class="grid grid-cols-6 gap-4 px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-6 dark:text-gray-400 dark:bg-gray-800">
                         <div class="col-start-2 col-end-6 text-center">
-                            <nav aria-label="Page navigation example">
+                            <nav aria-label="Page navigation example" th:if="${qnaList.getTotalPages() > 0}">
                                 <ul class="inline-flex items-center -space-x-px flex items-baseline">
-                                    <li>
-                                        <a href="#"
+                                    <li th:if="${qnaList.hasPrevious()}">
+                                        <a th:href="@{/admin/qna/list(answerStatus=${param.answerStatus}, searchType=${param.searchType}, keyword=${param.keyword}, page=${qnaList.getNumber() - 1})}"
                                            class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            <i class="fas fa-angle-double-left"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                             <i class="fas fa-chevron-left"></i>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#"
-                                           class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            1
-                                        </a>
+                                    <li th:each="i : ${#numbers.sequence(0, qnaList.getTotalPages() - 1 )}">
+                                        <a th:href="@{/admin/qna/list(answerStatus=${param.answerStatus}, searchType=${param.searchType}, keyword=${param.keyword}, page=${i})}"
+                                           th:classappend="${i == (qnaList.getNumber()) ? 'text-blue-600 bg-blue-50 border-blue-300' : 'text-gray-500 bg-white border-gray-300'}"
+                                           class="py-2 px-3 leading-tight border
+                                hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400
+                                dark:hover:bg-gray-700 dark:hover:text-white" th:text="${i + 1}">1</a>
                                     </li>
-                                    <li>
-                                        <a href="#"
-                                           class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            2
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" aria-current="page"
-                                           class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
-                                            3
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            4
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            5
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            6
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            7
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            8
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            9
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            10
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           class="block py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            <i class="fas fa-chevron-right"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
+                                    <li th:if="${qnaList.hasNext()}">
+                                        <a th:href="@{/admin/qna/list(answerStatus=${param.answerStatus}, searchType=${param.searchKeyword}, keyword=${param.keyword}, page=${qnaList.getNumber() + 1})}"
                                            class="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            <i class="fas fa-angle-double-right"></i>
+                                            <i class="fas fa-chevron-right"></i>
                                         </a>
                                     </li>
                                 </ul>

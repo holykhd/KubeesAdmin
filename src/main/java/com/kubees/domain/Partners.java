@@ -1,5 +1,6 @@
 package com.kubees.domain;
 
+import com.kubees.domain.enumType.PartnerStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

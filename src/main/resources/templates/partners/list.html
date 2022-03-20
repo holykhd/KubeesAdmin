@@ -126,7 +126,7 @@
                                 <td class="px-4 py-3"><input type="checkbox"></td>
                                 <td class="px-4 py-3 text-sm"><a th:href="@{/admin/partners/detail/{partnerId} (partnerId=${list.partnerId})}"><span th:text="${list.partnerCompanyName}">업체명 1</span></a></td>
                                 <td class="px-4 py-3 text-center text-sm" th:text="${list.partnerId}">아이디</td>
-                                <td class="px-4 py-3 text-center text-xs" th:text="${list.partnerUserName}">김큐브</td>
+                                <td class="px-4 py-3 text-center text-sm" th:text="${list.partnerUserName}">김큐브</td>
                                 <td class="px-4 py-1 text-center text-sm" th:text="${list.partnerPhone}">010-2212-1111</td>
                                 <td class="px-4 py-1 text-center text-sm" th:text="${#temporals.format(list.partnerCreated, 'yyyy-MM-dd HH:mm')}">2022-02-02 12:12:12</td>
                             </tr>

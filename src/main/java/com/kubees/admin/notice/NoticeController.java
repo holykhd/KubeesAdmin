@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -42,7 +43,9 @@ public class NoticeController {
      * 공지사항 목록 조회
      */
     @GetMapping("/list")
-    public String noticeList(Model model, SearchForm searchForm, @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String noticeList(Model model, SearchForm searchForm,
+                             @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+
         model.addAttribute("searchForm", searchForm);
         Page<Notice> noticeList = noticeService.getNoticeProcessor(searchForm, pageable);
         model.addAttribute("list", noticeList);

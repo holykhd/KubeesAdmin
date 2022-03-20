@@ -1,5 +1,6 @@
 package com.kubees.admin.notice.form;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 

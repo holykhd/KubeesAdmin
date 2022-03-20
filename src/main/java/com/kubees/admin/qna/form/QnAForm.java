@@ -1,7 +1,6 @@
 package com.kubees.admin.qna.form;
 
-import com.kubees.domain.AnswerStatus;
-import com.kubees.domain.QnATypeStatus;
+import com.kubees.domain.enumType.QnATypeStatus;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -23,7 +22,7 @@ public class QnAForm {
     @Length(min = 10, max = 255)
     private String question;                // 문의내용
 
-    private AnswerStatus answer;            // 답변
+    private String answer;            // 답변
 
     @NotBlank
     private QnATypeStatus type;             // 문의유형
@@ -32,6 +31,8 @@ public class QnAForm {
     private String createdId;                // 등록자 아이디
 
     private String answerId;                // 답변자 아이디
+
+    private String answerStatus;
 
     private LocalDateTime answerCreatedAt;        // 답변 등록일
 

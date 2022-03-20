@@ -2,9 +2,15 @@ package com.kubees.admin.qna;
 
 import com.kubees.admin.auth.PrincipalDetails;
 import com.kubees.admin.qna.form.QnAForm;
+import com.kubees.admin.qna.form.SearchForm;
+import com.kubees.domain.Account;
 import com.kubees.domain.QnA;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +35,11 @@ public class QnAController {
      * QnA 목록 조회
      */
     @GetMapping("/list")
-    public String userList(Model model) {
-        List<QnA> qnaList = qnAService.getQnaListProcessor();
-        log.info("qnaList ={}", qnaList);
+    public String qnaList(Model model, SearchForm searchForm, @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+
+        model.addAttribute("searchForm", searchForm);
+        Page<QnA> qnaList = qnAService.getQnaListProcessor(searchForm, pageable);
+        log.info("qnaListList ={}", qnaList);
         model.addAttribute("qnaList", qnaList);
         return "qna/list";
     }
@@ -40,7 +48,7 @@ public class QnAController {
      * QnA 상세 화면 조회
      */
     @GetMapping("/detail")
-    public String userDetail() {
+    public String qnaDetail() {
         return "qna/detail";
     }
 
