@@ -81,48 +81,87 @@
                         <div class="w-full overflow-auto bg-white">
                             <table class="w-full">
                                 <tbody>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">문의자 정보</th>
                                     <td class="px-4 py-3 bg-white">
-                                        kubees001@gmail.com / 홍길동
+                                        <span th:text="${detail.email}"></span>
                                     </td>
                                     <th class="px-4 py-3 bg-gray-50 w-32">문의 유형</th>
                                     <td class="px-4 py-3 bg-white">
-                                        서비스 문의
+                                        <span th:if="${detail.type.toString() == 'QNA_SERVICE'}" th:utext="'서비스 문의'">서비스 문의</span>
+                                        <span th:if="${detail.type.toString() == 'QNA_LOGIN'}" th:utext="'로그인 문의'">서비스 문의</span>
+                                        <span th:if="${detail.type.toString() == 'QNA_ETC'}" th:utext="'기타 문의'">서비스 문의</span>
                                     </td>
                                 </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">등록일</th>
-                                    <td colspan="3" class="px-4 py-3 bg-white">
+                                    <td colspan="3" class="px-4 py-3 bg-white" th:text="${#temporals.format(detail.createdAt, 'yyyy-MM-dd HH:mm')}">
                                         2022-01-01 11:11:11
                                     </td>
                                 </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">문의제목</th>
-                                    <td colspan="3" class="px-4 py-3 bg-white">
+                                    <td colspan="3" class="px-4 py-3 bg-white" th:text="${detail.title}">
                                         문의 제목이 출력됩니다.
                                     </td>
                                 </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">문의내용</th>
-                                    <td colspan="3" class="px-4 py-3 bg-white">
+                                    <td colspan="3" class="px-4 py-3 bg-white" th:utext="${detail.question}">
                                         문의 내용이 출력됩니다.
                                     </td>
                                 </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr th:classappend="${detail.answer} != null ? 'contents' : 'none'" id="replyView" class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">답변내용</th>
                                     <td colspan="3" class="px-4 py-3 bg-white">
-                                        답변 내용이 출력됩니다.
+                                        <pre th:utext="${detail.answer}" class="replyContents">답변 내용 출력</pre>
                                     </td>
                                 </tr>
+                                <tr style="display: none" th:classappend="${detail.answer == null ? 'none' : 'contents'}" id="replyForm" class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3 bg-gray-50 w-32">답변작성</th>
+                                    <td colspan="3" class="px-4 py-3 bg-white">
+                                        <div class="flex justify-between">
+                                            <div class="w-11/12">
+                                                <textarea type="text" id="answer" class="w-full form-input h-20" minlength="4" maxlength="200" name="answer"></textarea>
+                                            </div>
+                                            <div class="w-1/12">
+                                                <button id="btnReplySubmit" class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700 ml-3 h-20">
+                                                    답변
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+<!--
+                                <tr style="display: none" th:classappend="${detail.answer == null ? 'display: none' : 'display: contents'}" id="replyDiv" class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3 bg-gray-50 w-32">답변작성</th>
+                                    <td colspan="3" class="px-4 py-3 bg-white">
+                                        <div class="flex justify-between">
+                                            <div class="w-11/12">
+                                                <textarea type="text" id="answer" class="w-full form-input h-20" minlength="4" maxlength="200" name="answer"></textarea>
+                                            </div>
+                                            <div class="w-1/12">
+                                                <button id="btnReplySubmit" class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700 ml-3 h-20">
+                                                    답변
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr th:if="${detail.answer != null}" class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3 bg-gray-50 w-32">답변내용</th>
+                                    <td colspan="3" class="px-4 py-3 bg-white">
+                                        <pre th:utext="${detail.answer}">답변 내용 출력</pre>
+                                    </td>
+                                </tr>
+-->
                                 </tbody>
                             </table>
                             <div class="flex justify-center my-4 gap-4">
-                                <a href="/admin/qna/edit">
-                                    <button class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">
-                                        답변
-                                    </button>
-                                </a>
+                                <button th:classappend="${detail.answer} != null ? 'hidden' : 'replyBtn'" class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">
+                                    답변
+                                </button>
                                 <a href="/admin/qna/list">
                                     <button class="bg-gray-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">
                                         목록
@@ -136,6 +175,54 @@
             <!-- end -->
         </main>
         <div th:replace="layout/fragment :: footer"></div>
+        <script>
+            const replyView = document.querySelector("#replyView");
+            const replyForm = document.querySelector("#replyForm");
+            const replyBtn = document.querySelector(".replyBtn");
+            let replyContents = document.querySelector(".replyContents");
+
+            replyBtn.onclick = function () {
+                if (replyForm.style.display == 'none') {
+                    replyForm.style.display = 'contents';
+                    $(".replyBtn").html('취소').removeClass('bg-red-500').addClass('bg-blue-500');
+                } else {
+                    replyForm.style.display = 'none';
+                    $(".replyBtn").html('답변').removeClass('bg-blue-500').addClass('bg-red-500');
+                    $("#answer").val("");
+                }
+
+            };
+
+            let btnReplySubmit = document.querySelector("#btnReplySubmit");
+            const id = [[${detail.id}]];
+            btnReplySubmit.onclick = function () {
+                const answer = $("#answer").val();
+                if (answer.length < 10 || answer == "") {
+                    alert("답변은 10자리 이상을 입력해 주세요");
+                    $("#answer").focus();
+                    return;
+                }
+                // let answer = $("#answer").val();
+                data = {
+                    "answer": answer,
+                    "id": id
+                }
+                $.ajax({
+                    url: "/admin/qna/detail/" + id + "/answer",
+                    type: "post",
+                    data: JSON.stringify(data),
+                    contentType: "application/json;charset=UTF-8",
+                    success: function (data) {
+                        replyForm.style.display = 'none';
+                        replyView.style.display = 'contents';
+                        replyContents.style.display = "contents";
+                        replyBtn.style.display = 'none';
+                        $("#replyView").load(location.href + " #replyView");
+                    },
+                })
+
+            };
+        </script>
     </div>
 </div>
 </body>

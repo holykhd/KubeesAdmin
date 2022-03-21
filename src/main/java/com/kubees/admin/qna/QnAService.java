@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.kubees.domain.QQnA.qnA;
@@ -67,5 +68,18 @@ public class QnAService {
 
     private Predicate searchKeywordContain(String keywordCond) {
         return keywordCond != null ? qnA.title.contains(keywordCond) : null;
+    }
+
+    public QnA qnaDetailProcessor(Long id) {
+        return qnARepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
+    }
+
+    @Transactional
+    public QnA qnaAnswerProcessor(QnA qna, String answer, String userId) {
+        qna.setAnswer(answer);
+        qna.setAnswerId(userId);
+        qna.setAnswerCreatedAt(LocalDateTime.now());
+        qna.setAnswerStatus(QnAAnswerStatus.DONE);
+        return qna;
     }
 }

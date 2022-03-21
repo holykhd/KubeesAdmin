@@ -104,3 +104,7 @@ figure.gallery a {
     -webkit-transition-delay: 0s;
     transition-delay: 0s;
 }
+
+.none{
+    display: none;
+}

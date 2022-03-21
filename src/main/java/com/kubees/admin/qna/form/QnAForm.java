@@ -22,6 +22,8 @@ public class QnAForm {
     @Length(min = 10, max = 255)
     private String question;                // 문의내용
 
+    @NotBlank
+    @Length(min = 10, max = 255)
     private String answer;            // 답변
 
     @NotBlank

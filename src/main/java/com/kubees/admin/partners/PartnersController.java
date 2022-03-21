@@ -110,7 +110,7 @@ public class PartnersController {
         partnersForm.setPartnerUpdateUserId(principalDetails.getAccount().getUserId());
         partnersService.updatePartnerProcessor(partnersForm, principalDetails);
 
-        return "partners/list";
+        return "redirect:/admin/partners/list";
     }
 
 

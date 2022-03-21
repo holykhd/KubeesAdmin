@@ -7,6 +7,7 @@ import com.kubees.domain.Account;
 import com.kubees.domain.QnA;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jdt.internal.compiler.IErrorHandlingPolicy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,13 +16,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -47,9 +46,23 @@ public class QnAController {
     /**
      * QnA 상세 화면 조회
      */
-    @GetMapping("/detail")
-    public String qnaDetail() {
+    @GetMapping("/detail/{id}")
+    public String qnaDetail(@PathVariable Long id, Model model) {
+        QnA detail = qnAService.qnaDetailProcessor(id);
+        model.addAttribute("detail", detail);
         return "qna/detail";
+    }
+
+    /**
+     * QnA 답변하기
+     */
+    @ResponseBody
+    @PostMapping("/detail/{id}/answer")
+    public QnA qnaAnswer(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody Map<String, Object> params) {
+        String answer = (String) params.get("answer");
+        QnA qna = qnAService.getQnaProcessor(id);
+        QnA qnA = qnAService.qnaAnswerProcessor(qna, answer, principalDetails.getAccount().getEmail());
+        return qna;
     }
 
     /**
@@ -73,8 +86,6 @@ public class QnAController {
         if (bindingResult.hasErrors()) {
             return "qna/edit";
         }
-
-
 
         return "redirect:/admin/qna/list";
 
