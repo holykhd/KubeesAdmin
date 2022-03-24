@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html x-data="data()" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/fragment :: head">
+<body>
+
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900"
+     :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <!-- 좌측 메뉴 -->
+    <div th:replace="layout/fragment :: left-menu"></div>
+
+    <div
+            x-show="isSideMenuOpen"
+            x-transition:enter="transition ease-in-out duration-150"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in-out duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+    ></div>
+    <!-- 모바일 메뉴 -->
+    <div th:replace="layout/fragment :: mobile-menu"></div>
+
+    <div class="flex flex-col flex-1 w-full">
+        <!-- sub 상단 메뉴 -->
+        <div th:replace="layout/sub-header-fragment ::sub-header-message"></div>
+        <main class="h-full overflow-y-auto">
+            <!-- start -->
+            <div class="px-6 grid md:grid-cols-2 gap-4">
+                <!-- Breadcrumb start -->
+                <div class="text-xl font-semibold flex items-center h-16">
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                            <li class="inline-flex items-center">
+                                <a href="#"
+                                   class="inline-flex items-center text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                                    <svg class="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                                    </svg>
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                    <a href="#"
+                                       class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">푸시메시지
+                                        관리</a>
+                                </div>
+                            </li>
+                            <li aria-current="page">
+                                <div class="flex items-center">
+                                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500">등록</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <!-- Breadcrumb end -->
+            </div>
+            <!-- end -->
+
+
+            <!-- start -->
+            <div class="px-6 grid gap-4">
+
+                <div class="grid gap-6">
+                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                        <form th:action="@{/admin/pushMessage/form}" method="post" th:object="${pushMessageForm}">
+                            <div class="w-full overflow-auto bg-white">
+                                <table class="w-full">
+                                    <tbody>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-32">제목</th>
+                                        <td colspan="3" class="px-4 py-3 bg-white">
+                                            <input type="text" class="w-full form-input" th:field="*{title}">
+                                        </td>
+                                    </tr>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-32">본문</th>
+                                        <td colspan="3" class="px-4 py-3 bg-white">
+                                            <textarea name="" id="" cols="30" rows="10" th:field="*{message}"
+                                                      class="w-full h-36 form-input"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-32">버튼 설정</th>
+                                        <td colspan="3" class="px-4 py-3 bg-white">
+                                            <!-- 버튼설정 시작 -->
+                                            <table class="w-full border">
+                                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                                    <th class="px-4 py-3 bg-gray-50 w-32">
+                                                        <div class="flex justify-between">
+                                                            <span>버튼 1</span>
+                                                            <span>
+                                  <input type="checkbox" id="btnUseFirst" th:field="*{btnUseFirst}" value="use"
+                                         class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                </span>
+                                                        </div>
+                                                    </th>
+                                                    <td class="px-4 py-3 bg-white">
+                                                        <div class="flex flex-col">
+                                                            <div class="flex justify-between items-center mb-3">
+                                                                <span class="w-20">버튼명</span>
+                                                                <input type="text" id="btn-name-first"
+                                                                       th:field="*{btnNameFirst}"
+                                                                       class="btnUseFirstGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                            </div>
+                                                            <div class="flex justify-between items-center">
+                                                                <span class="w-20">버튼 링크</span>
+                                                                <input type="text" id="btn-link-first"
+                                                                       th:field="*{btnLinkFirst}"
+                                                                       class="btnUseFirstGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                                    <th class="px-4 py-3 bg-gray-50 w-32">
+                                                        <div class="flex justify-between">
+                                                            <span>버튼 2</span>
+                                                            <span>
+                                  <input type="checkbox" id="btnUseSecond" th:field="*{btnUseSecond}" value="use"
+                                         class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                </span>
+                                                        </div>
+                                                    </th>
+                                                    <td class="px-4 py-3 bg-white">
+                                                        <div class="flex flex-col">
+                                                            <div class="flex justify-between items-center mb-3">
+                                                                <span class="w-20">버튼명</span>
+                                                                <input type="text" id="btn-name-second"
+                                                                       th:field="*{btnNameSecond}"
+                                                                       class="btnUseSecondGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                            </div>
+                                                            <div class="flex justify-between items-center">
+                                                                <span class="w-20">버튼 링크</span>
+                                                                <input type="text" id="btn-link-second"
+                                                                       th:field="*{btnLinkSecond}"
+                                                                       class="btnUseSecondGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                                    <th class="px-4 py-3 bg-gray-50 w-32">
+                                                        <div class="flex justify-between">
+                                                            <span>버튼 3</span>
+                                                            <span>
+                                  <input type="checkbox" id="btnUseThird" th:field="*{btnUseThird}" value="use"
+                                         class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                </span>
+                                                        </div>
+                                                    </th>
+                                                    <td class="px-4 py-3 bg-white">
+                                                        <div class="flex flex-col">
+                                                            <div class="flex justify-between items-center mb-3">
+                                                                <span class="w-20">버튼명</span>
+                                                                <input type="text" id="btn-name-third"
+                                                                       th:field="*{btnNameThird}"
+                                                                       class="btnUseThirdGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                            </div>
+                                                            <div class="flex justify-between items-center">
+                                                                <span class="w-20">버튼 링크</span>
+                                                                <input type="text" id="btn-link-third"
+                                                                       th:field="*{btnLinkThird}"
+                                                                       class="btnUseThirdGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!-- 버튼설정 종료 -->
+                                        </td>
+                                    </tr>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-32">수신자</th>
+                                        <td class="px-4 py-3 bg-white">
+                                            <div>
+                                                <label for="sendUser"
+                                                       class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">시간선택</label>
+                                                <select id="sendUser"
+                                                        th:field="*{sendUser}"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                    <option value="">전체 사용자</option>
+                                                    <option value="00">전체 사용자</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <th class="px-4 py-3 bg-gray-50 w-32">발송 주기</th>
+                                        <td class="px-4 py-3 bg-white">
+                                            <label for="sendCycle"
+                                                   class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">시간선택</label>
+                                            <select id="sendCycle"
+                                                    th:field="*{sendCycle}"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                <option value="">1회 발송</option>
+                                                <option value="week">매주 발송</option>
+                                                <option value="month">매월 발송</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 bg-gray-50 w-32">발송 시간</th>
+                                        <td colspan="3" class="px-4 py-3 bg-white">
+                                            <div class="flex justify-between">
+                                                <div class="grid lg:grid-cols-8 gap-4 flex justify-between items-center">
+                                                    <div>
+                                                        <!-- radio button -->
+                                                        <fieldset>
+                                                            <legend class="sr-only">현재</legend>
+                                                            <div class="flex items-center">
+                                                                <input id="sendTimeNow" type="radio"
+                                                                       name="sendTime"
+                                                                       th:field="*{sendTime}"
+                                                                       value="now"
+                                                                       class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                                                                       aria-labelledby="sendTimeNow"
+                                                                       aria-describedby="sendTimeNow" checked>
+                                                                <label for="sendTimeNow"
+                                                                       class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                                                    현재
+                                                                </label>
+                                                            </div>
+                                                        </fieldset>
+                                                        <!-- radio button -->
+                                                    </div>
+                                                    <div class="">
+                                                        <!-- radio button -->
+                                                        <fieldset>
+                                                            <legend class="sr-only">예약</legend>
+                                                            <div class="flex items-center">
+                                                                <input id="sendTimeReservation" type="radio"
+                                                                       name="sendTime"
+                                                                       value="reservation"
+                                                                       class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                                                                       aria-labelledby="sendTime"
+                                                                       aria-describedby="sendTime">
+                                                                <label for="sendTimeReservation"
+                                                                       class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                                                    예약
+                                                                </label>
+                                                            </div>
+                                                        </fieldset>
+                                                        <!-- radio button -->
+                                                    </div>
+                                                    <div class="lg:col-span-6 grid lg:grid-cols-3 lg:gap-2">
+                                                        <div class="relative">
+                                                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                                     fill="currentColor" viewBox="0 0 20 20"
+                                                                     xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd"
+                                                                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                                                          clip-rule="evenodd"></path>
+                                                                </svg>
+                                                            </div>
+                                                            <input id="sendDate" autocomplete="off" datepicker
+                                                                   datepicker-buttons datepicker-format="yyyy-mm-dd"
+                                                                   datepicker-orientation="top left" type="text"
+                                                                   th:field="*{sendDate}"
+                                                                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                   placeholder="날짜 선택">
+                                                        </div>
+                                                        <div class="flex justify-between gap-2 grid lg:grid-cols-2">
+                                                            <div>
+                                                                <label for="sendHour"
+                                                                       class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">시간선택</label>
+                                                                <select id="sendHour"
+                                                                        th:field="*{sendHour}"
+                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                    <option value="">시간 선택</option>
+                                                                    <option value="00">00시</option>
+                                                                    <option value="01">01시</option>
+                                                                    <option value="02">02시</option>
+                                                                    <option value="03">03시</option>
+                                                                    <option value="04">04시</option>
+                                                                    <option value="05">05시</option>
+                                                                    <option value="06">06시</option>
+                                                                    <option value="07">07시</option>
+                                                                    <option value="08">08시</option>
+                                                                    <option value="09">09시</option>
+                                                                    <option value="10">10시</option>
+                                                                    <option value="11">11시</option>
+                                                                    <option value="12">12시</option>
+                                                                    <option value="13">13시</option>
+                                                                    <option value="14">14시</option>
+                                                                    <option value="15">15시</option>
+                                                                    <option value="16">16시</option>
+                                                                    <option value="17">17시</option>
+                                                                    <option value="18">18시</option>
+                                                                    <option value="19">19시</option>
+                                                                    <option value="20">20시</option>
+                                                                    <option value="21">21시</option>
+                                                                    <option value="22">22시</option>
+                                                                    <option value="23">23시</option>
+                                                                </select>
+                                                            </div>
+                                                            <div>
+                                                                <label for="sendMinutes"
+                                                                       class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">분
+                                                                    선택</label>
+                                                                <select id="sendMinutes"
+                                                                        th:field="*{sendMinutes}"
+                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                    <option value="">분 선택</option>
+                                                                    <option value="00">00분</option>
+                                                                    <option value="10">10분</option>
+                                                                    <option value="20">20분</option>
+                                                                    <option value="30">30분</option>
+                                                                    <option value="40">40분</option>
+                                                                    <option value="50">50분</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-green-400 font-semibold flex items-center">*
+                                                            설정한
+                                                            시각으로 예약 등록 합니다.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="flex justify-center my-4 gap-4">
+                                    <a th:href="@{/admin/pushMessage/list}">
+                                        <button type="button"
+                                                class="bg-gray-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">
+                                            취소
+                                        </button>
+                                    </a>
+                                    <button class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-red-700">
+                                        등록
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- end -->
+        </main>
+        <div th:replace="layout/fragment :: footer"></div>
+        <script>
+            $("#sendTimeNow").click(function () {
+                $("#sendHour, #sendDate, #sendMinutes").val("");
+                $("#sendHour, #sendDate, #sendMinutes").prop("disabled", true);
+            });
+
+            $("#sendTimeReservation").click(function () {
+                $("#sendHour, #sendDate, #sendMinutes").removeAttr("disabled");
+            });
+
+            $(function() {
+                enableF_cb();
+                $("#btnUseFirst").click(enableF_cb);
+            });
+
+            function enableF_cb() {
+                if (this.checked) {
+                    $("input.btnUseFirstGroup").removeAttr("disabled");
+                    $("input.btnUseFirstGroup").removeClass("bg-gray-100");
+                } else {
+                    $("input.btnUseFirstGroup").attr("disabled", true);
+                    $("input.btnUseFirstGroup").addClass("bg-gray-100");
+                }
+            }
+            $(function() {
+                enableS_cb();
+                $("#btnUseSecond").click(enableS_cb);
+            });
+
+            function enableS_cb() {
+                if (this.checked) {
+                    $("input.btnUseSecondGroup").removeAttr("disabled");
+                    $("input.btnUseSecondGroup").removeClass("bg-gray-100");
+                } else {
+                    $("input.btnUseSecondGroup").attr("disabled", true);
+                    $("input.btnUseSecondGroup").addClass("bg-gray-100");
+                }
+            }
+            $(function() {
+                enableT_cb();
+                $("#btnUseThird").click(enableT_cb);
+            });
+
+            function enableT_cb() {
+                if (this.checked) {
+                    $("input.btnUseThirdGroup").removeAttr("disabled");
+                    $("input.btnUseThirdGroup").removeClass("bg-gray-100");
+                } else {
+                    $("input.btnUseThirdGroup").attr("disabled", true);
+                    $("input.btnUseThirdGroup").addClass("bg-gray-100");
+                }
+            }
+
+        </script>
+    </div>
+</div>
+</body>
+</html>

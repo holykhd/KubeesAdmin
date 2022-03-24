@@ -84,19 +84,21 @@
                                 <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">제목</th>
                                     <td class="px-4 py-3 bg-white">
-                                        <span class="font-bold text-lg">스타벅스 큐브 론칭</span>
+                                        <span class="font-bold text-lg" th:text="${detail.title}">스타벅스 큐브 론칭</span>
                                     </td>
                                 </tr>
                                 <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">등록일</th>
-                                    <td class="px-4 py-3 bg-white">
+                                    <td class="px-4 py-3 bg-white" th:text="${#temporals.format(detail.createdAt, 'yyyy-MM-dd hh:MM')}">
                                         2022-02-02 12:12:12
                                     </td>
                                 </tr>
                                 <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">내용</th>
                                     <td class="px-4 py-3 bg-white">
-                                        스타벅스 메타버스 브렌치를 시작합니다...
+                                        <pre th:text="${detail.message}">
+                                            스타벅스 메타버스 브렌치를 시작합니다...
+                                        </pre>
                                     </td>
                                 </tr>
                                 <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
