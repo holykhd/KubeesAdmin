@@ -28,5 +28,7 @@ public class NoticeForm {
     private String publishMinutes;
 
     private String createdId;
+    private String openFlag;
+    private String message;
 
 }

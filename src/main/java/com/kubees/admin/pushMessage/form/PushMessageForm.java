@@ -15,21 +15,18 @@ public class PushMessageForm {
     private String title;                   // 제목
 
     @NotBlank
-    private String message;                 // 메시지 내용내용
+    private String contents;                 // 메시지 내용내용
 
-    private String sendUser;                // 수신자
+    @NotBlank
+    private String publishTime;                // 발송 시간(현재 : now, 예약 : reservation)
 
-    private String sendCycle;               // 발송 주기
+    private String publishDate;
 
-    private String sendTime;                // 발송 시간(현재 : now, 예약 : reservation)
+    private String publishHour;
 
-    private String sendDate;                // 발송시간(날짜 선택)
+    private String publishMinutes;
 
-    private String sendHour;                // 발송시간(시간)
-
-    private String sendMinutes;             // 발송시간 (분)
-
-    private LocalDateTime createdAt;        // 등록일
+    private String openFlag;
 
     private String createdId;               // 등록자 아이디
 
@@ -54,4 +51,5 @@ public class PushMessageForm {
     private String btnLinkThird;             // 세번째 번튼 링크
 
     private String btnUseThird;             // 세번째 번튼 사용여부(use : 사용, stop : 사용중지)
+    private String message;
 }

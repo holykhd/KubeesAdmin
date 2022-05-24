@@ -18,6 +18,42 @@
     <!-- Search input -->
 
     <div class="flex justify-start">
+      <a th:href="@{/admin/user/list}">
+        <button type="button"
+                class="py-2 px-4 mr-2 mb-2 text-sm font-medium
+                text-gray-900 rounded-full border
+                border-gray-200 hover:bg-gray-100 hover:text-blue-700
+                focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700
+                dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600
+                dark:hover:text-white dark:hover:bg-gray-700"
+                th:classappend="${header == 'userList' ? 'bg-yellow-500 text-white' : 'bg-white' }">전체 회원</button>
+      </a>
+      <a th:href="@{/admin/user/deprecatedList}">
+        <button type="button"
+                class="py-2 px-4 mr-2 mb-2 text-sm font-medium
+                text-gray-900 rounded-full border
+                border-gray-200 hover:bg-gray-100 hover:text-blue-700
+                focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700
+                dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600
+                dark:hover:text-white dark:hover:bg-gray-700"
+                th:classappend="${header == 'deprecated' ? 'bg-yellow-500 text-white' : 'bg-white' }">사용 제한 회원</button>
+      </a>
+      <a th:href="@{/admin/user/blockList}">
+        <button type="button"
+                class="py-2 px-4 mr-2 mb-2 text-sm font-medium
+                text-gray-900 rounded-full border
+                border-gray-200 hover:bg-gray-100 hover:text-blue-700
+                focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700
+                dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600
+                dark:hover:text-white dark:hover:bg-gray-700"
+                th:classappend="${header == 'blockList' ? 'bg-yellow-500 text-white' : 'bg-white' }">차단 중인 회원</button>
+      </a>
+<!--
+      <a href="#">
+        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          차단 중인 회원
+        </button>
+      </a>
       <a href="#">
         <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
           정상 회원
@@ -48,6 +84,7 @@
           이용 정지 중인 회원
         </button>
       </a>
+-->
     </div>
   </div>
 </header>
@@ -194,17 +231,17 @@
     <!-- Search input -->
 
     <div class="flex justify-start">
-      <a href="#">
+      <a th:href="@{/admin/partners/list}">
         <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
           협력업체 정보
         </button>
       </a>
-      <a href="#">
+      <a th:href="@{/admin/partners/products/list}">
         <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
           업체 상품 관리
         </button>
       </a>
-      <a href="#">
+      <a th:href="@{/admin/partners/statistics/list}">
         <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
           통계
         </button>
@@ -230,17 +267,17 @@
     <!-- Search input -->
 
     <div class="flex justify-start">
-      <a href="#">
+      <a th:href="@{/admin/partners/list}">
         <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
           협력업체 정보
         </button>
       </a>
-      <a href="#">
+      <a th:href="@{/admin/partners/products/list}">
         <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
           업체 상품 관리
         </button>
       </a>
-      <a href="#">
+      <a th:href="@{/admin/partners/statistics/list}">
         <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
           통계
         </button>
@@ -266,20 +303,35 @@
     <!-- Search input -->
 
     <div class="flex justify-start">
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          협력업체 정보
-        </button>
+      <a th:href="@{/admin/partners/list}">
+        <button type="button"
+                class="py-2 px-4 mr-2 mb-2 text-sm font-medium
+                text-gray-900 rounded-full border border-gray-200
+                hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2
+                focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800
+                dark:text-gray-400 dark:border-gray-600 dark:hover:text-white
+                dark:hover:bg-gray-700"
+                th:classappend="${header == 'partners' ? 'bg-yellow-500 text-white' : 'bg-white' }">협력업체 정보</button>
       </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          업체 상품 관리
-        </button>
+      <a th:href="@{/admin/partners/products/list}">
+        <button type="button"
+                class="py-2 px-4 mr-2 mb-2 text-sm font-medium
+                text-gray-900 rounded-full border border-gray-200
+                hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2
+                focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800
+                dark:text-gray-400 dark:border-gray-600 dark:hover:text-white
+                dark:hover:bg-gray-700"
+                th:classappend="${header == 'products' ? 'bg-yellow-500 text-white' : 'bg-white' }">업체 상품 관리</button>
       </a>
-      <a href="#">
-        <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          통계
-        </button>
+      <a th:href="@{/admin/partners/statistics/list}">
+        <button type="button"
+                class="py-2 px-4 mr-2 mb-2 text-sm font-medium
+                text-gray-900 rounded-full border border-gray-200
+                hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2
+                focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800
+                dark:text-gray-400 dark:border-gray-600 dark:hover:text-white
+                dark:hover:bg-gray-700"
+                th:classappend="${header == 'statistics' ? 'bg-yellow-500 text-white' : 'bg-white' }">통계</button>
       </a>
     </div>
   </div>

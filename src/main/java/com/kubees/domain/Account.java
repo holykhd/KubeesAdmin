@@ -1,5 +1,6 @@
 package com.kubees.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kubees.domain.enumType.UserStatus;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Getter
 @Setter
@@ -17,7 +20,6 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Account {
 
     @Id
@@ -48,6 +50,12 @@ public class Account {
     private UserStatus userStatus;               // 계정상태 : NOT_CHECKED(이메일 인증안됨), DISABLED(비활성화), ACTIVE(활성화), BLOCK(차단)
     //Y : 정상 유저, D : 탈퇴한 유저, B : 이용 정지된 유저, T : 탈퇴 유예 상태인 유저, P : 이용 정지 유예 상태인 유저, M : 유실된 계정
 
+    @Column(name = "status_change_email")
+    private String StatusChangeEmail;                  // 회원 계정정보를 변경한 아이디
+
+    @Column(name = "status_updated_at")
+    private LocalDateTime statusUpdatedAt;          // 회원 계정정보를 변경한 날짜
+
     @Column(name = "user_description")
     private String userDescription;                    // 소개문구
 
@@ -76,6 +84,10 @@ public class Account {
     @Column(name = "user_role")
     private String roles;                  // 회원 권한(일반회원, 매니저, 관리자)
 
+    @OneToMany(mappedBy = "account", fetch = LAZY)
+    @JsonIgnoreProperties({"account"})
+    private List<Feed> feed;
+
     public List<String> getRolesList() {
         if (this.roles.length() > 0) {
             return Arrays.asList(this.roles.split(","));
@@ -92,6 +104,7 @@ public class Account {
         this.characterId = 0L;
         this.profileId = 0L;
         this.userStatus = UserStatus.Y;
+        this.openFlag = "Y";
     }
 
 
@@ -101,4 +114,6 @@ public class Account {
 
     public void completedLogin() {
         createdAt = LocalDateTime.now();
-    }}
+    }
+
+}

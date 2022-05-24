@@ -6,6 +6,7 @@ import com.kubees.admin.notice.form.SearchForm;
 import com.kubees.domain.Notice;
 import com.kubees.domain.QNotice;
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.kubees.domain.QNotice.notice;
 
@@ -36,11 +38,32 @@ public class NoticeService {
 
 
     private final NoticeRepository noticeRepository;
-    public void createNoticeProcessor(NoticeForm noticeForm, PrincipalDetails principalDetails) {
+    public void createNoticeProcessor(NoticeForm noticeForm, PrincipalDetails principalDetails) throws ParseException {
+
         Notice notice = new Notice();
         notice.setTitle(noticeForm.getTitle());
         notice.setContents(noticeForm.getContents());
         notice.setCreatedId(principalDetails.getAccount().getUserId());
+        notice.setPublishTime(noticeForm.getPublishTime());
+        notice.setPublishDate(noticeForm.getPublishDate());
+        notice.setPublishHour(noticeForm.getPublishHour());
+        notice.setPublishMinutes(noticeForm.getPublishMinutes());
+        notice.setCreatedId(principalDetails.getAccount().getUserId());
+
+        if (noticeForm.getPublishTime().equals("reservation")) {
+            String datePattern = noticeForm.getPublishDate() + " " + noticeForm.getPublishHour() + ":" + noticeForm.getPublishMinutes();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date date = simpleDateFormat.parse(datePattern);
+            String openMilliSecond = String.valueOf(date.getTime());
+            notice.setOpenDate(openMilliSecond);
+        }
+
+
+        if (noticeForm.getPublishTime().equals("now")) {
+            notice.setOpenFlag("Y");
+        } else {
+            notice.setOpenFlag("N");
+        }
 
         noticeRepository.save(notice);
 
@@ -48,10 +71,48 @@ public class NoticeService {
         // 글 바로 등록하기
     }
 
-    public Page<Notice> getNoticeProcessor(SearchForm searchForm, Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<Notice> getNoticeProcessor(SearchForm searchForm, Pageable pageable) throws ParseException {
+        // 현재 시간 값을 밀리세컨으로 구한다.
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String nowDate = sdf.format(new Date());
+        Date date = sdf.parse(nowDate);
+        long nowMillisecond = date.getTime();
+
         queryFactory = new JPAQueryFactory(em);
 
-        QueryResults<Notice> resultList = queryFactory.selectFrom(notice)
+        // 예약 등록인 글들을 조회해서 예약 시간보다 현재 시간이 큰 값이 있을 경우 open_flag를 N에서 Y로 변경하기
+        List<Notice> reservationList = queryFactory.selectFrom(notice)
+                .where(
+                        notice.publishTime.eq("reservation")
+                                .and(notice.openFlag.eq("N"))
+                )
+                .fetch();
+
+        for (Notice notice : reservationList) {
+            // 공지사항 등록 날짜가 오늘 날짜보다 작을경우(오픈일/시간일경우) 오픈 플래그를 N에서 Y로 변경한다.
+            if (nowMillisecond > Long.parseLong(notice.getOpenDate())) {
+                notice.setOpenFlag("Y");
+            }
+        }
+
+
+        List<Map<String, Object>> reservationNoticeList = new ArrayList<>();
+        for (Notice notice : reservationList) {
+            Map<String, Object> map = new HashMap<>();
+            String noticeReservationDate = notice.getPublishDate() + " " + notice.getPublishHour() + ":" + notice.getPublishMinutes();
+            map.put("publishDate", notice.getPublishDate());
+            map.put("publishHour", notice.getPublishHour());
+            map.put("publishMinutes", notice.getPublishMinutes());
+
+            Date publishDate = sdf.parse(noticeReservationDate);
+            map.put("milliTime", publishDate.getTime());
+            map.put("publishTime", publishDate);
+            reservationNoticeList.add(map);
+        }
+
+        QueryResults<Notice> resultList = queryFactory
+                .selectFrom(notice)
                 .where(searchTypeContain(searchForm.getSearchType(), searchForm.getKeyword()))
                 .offset(pageable.getOffset())
                 .orderBy(notice.id.desc())
@@ -100,26 +161,37 @@ public class NoticeService {
         return noticeForm;
     }
 
+
     /**
      * 공지사항 수정하기
      */
-    public void updateNoticeProcessor(PrincipalDetails principalDetails, NoticeForm noticeForm) {
+    @Transactional
+    public void updateNoticeProcessor(PrincipalDetails principalDetails, NoticeForm noticeForm) throws ParseException {
         Notice notice = noticeRepository.findById(noticeForm.getId()).orElse(null);
 
         updateNotice(principalDetails, noticeForm, notice);
 
     }
 
-    private void updateNotice(PrincipalDetails principalDetails, NoticeForm noticeForm, Notice notice) {
+    private void updateNotice(PrincipalDetails principalDetails, NoticeForm noticeForm, Notice notice) throws ParseException {
+
         notice.setTitle(noticeForm.getTitle());
         notice.setContents(noticeForm.getContents());
         notice.setPublishTime(noticeForm.getPublishTime());
-        notice.setPublishDate(noticeForm.getPublishDate());
         notice.setPublishDate(noticeForm.getPublishDate());
         notice.setPublishHour(noticeForm.getPublishHour());
         notice.setPublishMinutes(noticeForm.getPublishMinutes());
         notice.setCreatedAt(LocalDateTime.now());
         notice.setUpdatedId(principalDetails.getAccount().getUserId());
+
+        if (noticeForm.getPublishTime().equals("reservation")) {
+            String datePattern = noticeForm.getPublishDate() + " " + noticeForm.getPublishHour() + ":" + noticeForm.getPublishMinutes();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date date = simpleDateFormat.parse(datePattern);
+            String openMilliSecond = String.valueOf(date.getTime());
+            notice.setOpenDate(openMilliSecond);
+        }
+
     }
 
     @Transactional
@@ -130,5 +202,10 @@ public class NoticeService {
             notice.setOpenFlag("Y");
         }
         return notice;
+    }
+
+    @Transactional
+    public void deleteNoticeProcessor(Long id) {
+        noticeRepository.deleteById(id);
     }
 }

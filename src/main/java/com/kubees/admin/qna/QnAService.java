@@ -48,6 +48,7 @@ public class QnAService {
                 .where(searchStatusEq(searchForm.getAnswerStatus()),
                         searchTypeEq(searchForm.getSearchType()),
                         searchKeywordContain(searchForm.getKeyword()))
+                .orderBy(qnA.createdAt.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();

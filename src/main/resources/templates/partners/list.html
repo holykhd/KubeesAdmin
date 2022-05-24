@@ -110,7 +110,7 @@
                         <table class="w-full whitespace-no-wrap">
                             <thead>
                             <tr class="text-sm font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3"><input type="checkbox"></th>
+<!--                                <th class="px-4 py-3"><input type="checkbox"></th>-->
                                 <th class="px-4 py-3 text-center">업체명</th>
                                 <th class="px-4 py-3 text-center">아이디</th>
                                 <th class="px-4 py-3 text-center">담당자명</th>
@@ -123,7 +123,7 @@
                                 <td class="py-20 text-center" colspan="6">게시글이 존재하지 않습니다.</td>
                             </tr>
                             <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${partnerList}">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
+<!--                                <td class="px-4 py-3"><input type="checkbox"></td>-->
                                 <td class="px-4 py-3 text-sm"><a th:href="@{/admin/partners/detail/{partnerId} (partnerId=${list.partnerId})}"><span th:text="${list.partnerCompanyName}">업체명 1</span></a></td>
                                 <td class="px-4 py-3 text-center text-sm" th:text="${list.partnerId}">아이디</td>
                                 <td class="px-4 py-3 text-center text-sm" th:text="${list.partnerUserName}">김큐브</td>
@@ -135,10 +135,11 @@
                     </div>
                     <div class="grid grid-cols-6 gap-4 px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-6 dark:text-gray-400 dark:bg-gray-800">
                         <div class="col-start-1 col-span-1">
-                            <a href="/admin/partners/form">
-                                <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-gray-600 border border-transparent rounded-lg active:bg-gray-700 hover:bg-gray-800 focus:outline-none focus:shadow-outline-gray">
-                                    신규 등록
-                                </button>
+                            <a th:href="@{/admin/partners/form}">
+                                <button type="button" class="text-white bg-blue-700
+                                 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium
+                                 rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600
+                                 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">신규 등록</button>
                             </a>
                         </div>
                         <div class="col-start-2 col-end-6 text-center" th:if="${partnerList.getTotalPages()}">

@@ -45,6 +45,7 @@ public class PartnersController {
                                Pageable pageable) {
         model.addAttribute("searchForm", searchForm);
         Page<Partners> partnerList = partnersService.getPartnerList(searchForm, pageable);
+        model.addAttribute("header", "partners");
         model.addAttribute("partnerList", partnerList);
 
         return "partners/list";

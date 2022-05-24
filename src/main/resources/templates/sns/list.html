@@ -53,34 +53,36 @@
           </nav>
         </div>
         <!-- Breadcrumb end -->
-        <div class="p-2 grid md:grid-cols-6">
-          <div class="col-span-2"></div>
-          <div class="grid md:grid-cols-4 gap-2 md:col-span-4">
-            <div class="md:col-span-1">
-              <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 hidden">검색항목 선택</label>
-              <select id="countries" class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option>연락처</option>
-                <option>이름</option>
-                <option>닉네임</option>
-                <option>계정</option>
-              </select>
-            </div>
-            <div class="md:col-span-2">
-              <input class="w-full h-full py-3 pl-2.5 pr-2 text-sm placeholder-gray-600 bg-white border border-gray-300 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300"
-                     type="text"
-                     placeholder="검색어 입력"
-                     aria-label="Search"/>
-            </div>
-            <div class="md:col-span-1">
-              <button class="md:w-20 w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-                검색
-              </button>
-            </div>
+        <form th:action="@{/admin/sns/list}" th:object="${searchForm}">
+          <div class="p-2 grid md:grid-cols-6">
+            <div class="col-span-2"></div>
+              <div class="grid md:grid-cols-4 gap-2 md:col-span-4">
+                <div class="md:col-span-1">
+                  <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 hidden">검색항목 선택</label>
+                  <select id="countries" th:field="*{searchType}" class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="phone">연락처</option>
+                    <option value="name">이름</option>
+                    <option value="nickname">닉네임</option>
+                    <option value="email">계정</option>
+                  </select>
+                </div>
+                <div class="md:col-span-2">
+                  <input class="w-full h-full py-3 pl-2.5 pr-2 text-sm placeholder-gray-600 bg-white border border-gray-300 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300"
+                         type="text"
+                         placeholder="검색어 입력"
+                         th:field="*{keyword}"
+                         aria-label="Search"/>
+                </div>
+                <div class="md:col-span-1">
+                  <button class="md:w-20 w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
+                    검색
+                  </button>
+                </div>
+              </div>
           </div>
-        </div>
+        </form>
       </div>
       <!-- end -->
-
       <div class="px-6 mx-auto grid">
         <!-- 상단 타이틀 & 검색영역 -->
         <!-- New Table -->
@@ -89,7 +91,7 @@
             <table class="w-full whitespace-no-wrap">
               <thead>
                 <tr class="text-sm font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                  <th class="px-4 py-3"><input type="checkbox"></th>
+<!--                  <th class="px-4 py-3"><input type="checkbox"></th>-->
                   <th class="px-4 py-3 text-center">사용자 계정</th>
                   <th class="px-4 py-3 text-center">닉네임</th>
                   <th class="px-4 py-3 text-center">이름</th>
@@ -99,165 +101,19 @@
                 </tr>
               </thead>
               <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/sns/detail">cube001@gmail.com</a></td>
-                  <td class="px-4 py-3 text-center text-xs">닉네임</td>
-                  <td class="px-4 py-3 text-center text-sm">홍길동</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">
-                    <a href="/admin/sns/detail">
-                      <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
-                        이력 자세히 보기
-                      </button>
-                    </a>
-                  </td>
+                <tr class="text-gray-700 dark:text-gray-400" th:if="${list.getTotalElements() == 0}">
+                  <td colspan="10" class="px-4 py-20 text-center">게시글이 존재하지 않습니다.</td>
                 </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/sns/detail">cube001@gmail.com</a></td>
-                  <td class="px-4 py-3 text-center text-xs">닉네임</td>
-                  <td class="px-4 py-3 text-center text-sm">홍길동</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
+
+                <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${list}">
+<!--                  <td class="px-4 py-3"><input type="checkbox"></td>-->
+                  <td class="px-4 py-3 text-sm" th:text="${list.email}">cube001@gmail.com</td>
+                  <td class="px-4 py-3 text-center text-xs" th:text="${list.nickname}">닉네임</td>
+                  <td class="px-4 py-3 text-center text-sm" th:text="${list.name}">홍길동</td>
+                  <td class="px-4 py-3 text-center text-sm" th:text="${list.followCount}">00</td>
+                  <td class="px-4 py-3 text-center text-sm" th:text="${list.feedCount}">00</td>
                   <td class="px-4 py-3 text-center text-sm">
-                    <a href="/admin/sns/detail">
-                      <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
-                        이력 자세히 보기
-                      </button>
-                    </a>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/sns/detail">cube001@gmail.com</a></td>
-                  <td class="px-4 py-3 text-center text-xs">닉네임</td>
-                  <td class="px-4 py-3 text-center text-sm">홍길동</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">
-                    <a href="/admin/sns/detail">
-                      <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
-                        이력 자세히 보기
-                      </button>
-                    </a>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/sns/detail">cube001@gmail.com</a></td>
-                  <td class="px-4 py-3 text-center text-xs">닉네임</td>
-                  <td class="px-4 py-3 text-center text-sm">홍길동</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">
-                    <a href="/admin/sns/detail">
-                      <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
-                        이력 자세히 보기
-                      </button>
-                    </a>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/sns/detail">cube001@gmail.com</a></td>
-                  <td class="px-4 py-3 text-center text-xs">닉네임</td>
-                  <td class="px-4 py-3 text-center text-sm">홍길동</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">
-                    <a href="/admin/sns/detail">
-                      <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
-                        이력 자세히 보기
-                      </button>
-                    </a>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/sns/detail">cube001@gmail.com</a></td>
-                  <td class="px-4 py-3 text-center text-xs">닉네임</td>
-                  <td class="px-4 py-3 text-center text-sm">홍길동</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">
-                    <a href="/admin/sns/detail">
-                      <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
-                        이력 자세히 보기
-                      </button>
-                    </a>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/sns/detail">cube001@gmail.com</a></td>
-                  <td class="px-4 py-3 text-center text-xs">닉네임</td>
-                  <td class="px-4 py-3 text-center text-sm">홍길동</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">
-                    <a href="/admin/sns/detail">
-                      <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
-                        이력 자세히 보기
-                      </button>
-                    </a>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/sns/detail">cube001@gmail.com</a></td>
-                  <td class="px-4 py-3 text-center text-xs">닉네임</td>
-                  <td class="px-4 py-3 text-center text-sm">홍길동</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">
-                    <a href="/admin/sns/detail">
-                      <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
-                        이력 자세히 보기
-                      </button>
-                    </a>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/sns/detail">cube001@gmail.com</a></td>
-                  <td class="px-4 py-3 text-center text-xs">닉네임</td>
-                  <td class="px-4 py-3 text-center text-sm">홍길동</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">
-                    <a href="/admin/sns/detail">
-                      <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
-                        이력 자세히 보기
-                      </button>
-                    </a>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/sns/detail">cube001@gmail.com</a></td>
-                  <td class="px-4 py-3 text-center text-xs">닉네임</td>
-                  <td class="px-4 py-3 text-center text-sm">홍길동</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">
-                    <a href="/admin/sns/detail">
-                      <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
-                        이력 자세히 보기
-                      </button>
-                    </a>
-                  </td>
-                </tr>
-                <tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-4 py-3"><input type="checkbox"></td>
-                  <td class="px-4 py-3 text-sm"><a href="/admin/sns/detail">cube001@gmail.com</a></td>
-                  <td class="px-4 py-3 text-center text-xs">닉네임</td>
-                  <td class="px-4 py-3 text-center text-sm">홍길동</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">00</td>
-                  <td class="px-4 py-3 text-center text-sm">
-                    <a href="/admin/sns/detail">
+                    <a th:href="@{'/admin/sns/detail/' + ${list.id}}">
                       <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-gray">
                         이력 자세히 보기
                       </button>
@@ -269,76 +125,25 @@
           </div>
           <div class="grid grid-cols-6 gap-4 px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-6 dark:text-gray-400 dark:bg-gray-800">
             <div class="col-start-2 col-end-6 text-center">
-              <nav aria-label="Page navigation example">
+              <nav aria-label="Page navigation example" th:if="${list.getTotalPages() > 0}">
                 <ul class="inline-flex items-center -space-x-px flex items-baseline">
-                  <li>
-                    <a href="#" class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      <i class="fas fa-angle-double-left"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                  <li th:if="${list.hasPrevious()}">
+                    <a th:href="@{/admin/sns/list(searchType=${param.searchType}, keyword=${param.keyword}, page=${list.getNumber() - 1})}"
+                       class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                       <i class="fas fa-chevron-left"></i>
                     </a>
                   </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      1
-                    </a>
+                  <li th:each="i : ${#numbers.sequence(0, list.getTotalPages() - 1 )}">
+                    <a th:href="@{/admin/sns/list(searchType=${param.searchType}, keyword=${param.keyword}, page=${i})}"
+                       th:classappend="${i == (list.getNumber()) ? 'text-blue-600 bg-blue-50 border-blue-300' : 'text-gray-500 bg-white border-gray-300'}"
+                       class="py-2 px-3 leading-tight border
+                                hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400
+                                dark:hover:bg-gray-700 dark:hover:text-white" th:text="${i + 1}">1</a>
                   </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      2
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" aria-current="page" class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
-                      3
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      4
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      5
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      6
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      7
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      8
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      9
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      10
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="block py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                  <li th:if="${list.hasNext()}">
+                    <a th:href="@{/admin/sns/list(searchType=${param.searchKeyword}, keyword=${param.keyword}, page=${list.getNumber() + 1})}"
+                       class="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                       <i class="fas fa-chevron-right"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                      <i class="fas fa-angle-double-right"></i>
                     </a>
                   </li>
                 </ul>

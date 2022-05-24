@@ -4,8 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
@@ -18,8 +16,8 @@ public class Notice {
 
     private String title;               // 제목
 
-//    @Lob
-    @Column(columnDefinition = "TEXT")
+    @Lob
+//    @Column(columnDefinition = "TEXT")
     private String contents;             // 내용
 
     private String publishTime;         // 발행시간(현재 : now, 예약 : reservation)
@@ -31,6 +29,8 @@ public class Notice {
     private String publishMinutes;       // 발행시간(분)
     private int hit;                    // 조회수
     private String openFlag;            // 화면 출력 상태(출력 : Y / 숨김 : N)
+
+    private String openDate;            // 글 오픈 시간
 
     private LocalDateTime createdAt;     // 등록일
 
@@ -44,6 +44,5 @@ public class Notice {
     public void LocalDateTime() {
         this.createdAt = LocalDateTime.now();
         this.hit = 0;
-        this.openFlag = "Y";
     }
 }

@@ -108,36 +108,55 @@
                         <table class="w-full whitespace-no-wrap">
                             <thead>
                             <tr class="text-sm font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3"><input type="checkbox"></th>
+<!--                                <th class="px-4 py-3"><input type="checkbox"></th>-->
                                 <th class="px-4 py-3 text-center">제목</th>
                                 <th class="px-4 py-3 text-center">메시지 내용</th>
-                                <th class="px-4 py-3 text-center">발송일</th>
-                                <th class="px-4 py-3 text-center">발송주기</th>
+                                <th class="px-4 py-3 text-center">등록일</th>
+                                <th class="px-4 py-3 text-center">오픈시간</th>
+                                <th class="px-4 py-3 text-center">오픈상태</th>
                             </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                             <tr class="text-gray-700 dark:text-gray-400" th:if="${pushMessageList.getTotalElements() == 0}">
-                                <td class="py-20 text-center" colspan="6">게시글이 존재하지 않습니다.</td>
+                                <td class="py-20 text-center" colspan="5">게시글이 존재하지 않습니다.</td>
                             </tr>
                             <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${pushMessageList}">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
-                                <td class="px-4 py-3 text-sm"><span th:text="${list.title}">스타벅스 큐브 론칭</span></a></td>
-                                <td class="px-4 py-3 text-center text-sm">
+<!--                                <td class="px-4 py-3"><input type="checkbox"></td>-->
+                                <td class="px-4 py-3 text-sm">
                                     <a th:href="@{/admin/pushMessage/detail/{id} (id=${list.id})}">
-                                        <span th:text="${list.message}">스타벅스 메타버스 브런치를 시작합니다. 큐비스와 함께하면 더욱 즐거운..</span>
-                                    </a>
+                                        <span th:text="${list.title}">스타벅스 큐브 론칭</span></a>
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    <span th:text="${#strings.substring(list.contents, 0, 10)}">스타벅스 메타버스 브런치를 시작합니다. 큐비스와 함께하면 더욱 즐거운..</span>
                                 </td>
                                 <td class="px-4 py-3 text-center text-sm" th:text="${#temporals.format(list.createdAt, 'yyyy-MM-dd HH:mm')}">2022.01.01 12:12:12</td>
-                                <td class="px-4 py-3 text-center text-sm">매주 월요일 00:00</td>
+                                <td class="px-4 py-3 text-center text-sm">
+                                    <p th:if="${list.publishTime == 'reservation'}" th:text="${list.publishDate} + ' ' + ${list.publishHour} + ':' + ${list.publishMinutes}">2022.01.01 12:12:12</p>
+                                    <p th:if="${list.publishTime == 'now'}" th:text="'바로 출력'">2022.01.01 12:12:12</p>
+                                </td>
+                                <td class="px-4 py-3 text-center text-xs flex justify-center">
+                                    <button th:classappend="${list.openFlag == 'Y' ? 'bg-red-700 hover:bg-red-800' : 'bg-black'}"
+                                            th:id="'modal-' + ${list.id}"
+                                            class="bg-red-700 hover:bg-red-800 block text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5
+                                            text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                            type="button"
+                                            th:data-modal-toggle="'popup-modal-' + ${list.id}">
+                                        <span th:text="${list.openFlag == 'Y' ? '오픈' : '오픈전'}">숨김</span>
+                                    </button>
+                                </td>
+
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="grid grid-cols-6 gap-4 px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-6 dark:text-gray-400 dark:bg-gray-800">
                         <div class="col-start-1 col-span-1">
-                            <button class="w-30 px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-gray-600 border border-transparent rounded-lg active:bg-gray-700 hover:bg-gray-800 focus:outline-none focus:shadow-outline-gray">
-                                <a th:href="@{/admin/pushMessage/form}">신규 등록</a>
-                            </button>
+                            <a th:href="@{/admin/pushMessage/form}">
+                                <button type="button" class="text-white bg-blue-700
+                                 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium
+                                 rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600
+                                 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">신규 등록</button>
+                            </a>
                         </div>
                         <div class="col-start-2 col-end-6 text-center">
                             <nav aria-label="Page navigation example" th:if="${pushMessageList.getTotalPages() > 0}">

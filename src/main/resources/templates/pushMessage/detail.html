@@ -81,90 +81,95 @@
                         <div class="w-full overflow-auto bg-white">
                             <table class="w-full">
                                 <tbody>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">제목</th>
                                     <td class="px-4 py-3 bg-white">
                                         <span class="font-bold text-lg" th:text="${detail.title}">스타벅스 큐브 론칭</span>
                                     </td>
                                 </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">등록일</th>
                                     <td class="px-4 py-3 bg-white" th:text="${#temporals.format(detail.createdAt, 'yyyy-MM-dd hh:MM')}">
                                         2022-02-02 12:12:12
                                     </td>
                                 </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">내용</th>
                                     <td class="px-4 py-3 bg-white">
-                                        <pre th:text="${detail.message}">
+                                        <pre th:text="${detail.contents}">
                                             스타벅스 메타버스 브렌치를 시작합니다...
                                         </pre>
                                     </td>
                                 </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3 bg-gray-50 w-32">발송 시간</th>
-                                    <td class="px-4 py-3 bg-white">
-                                        등록일 발송
-                                    </td>
-                                </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3 bg-gray-50 w-32">발송 주기</th>
-                                    <td class="px-4 py-3 bg-white">
-                                        1회 발송
-                                    </td>
-                                </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3 bg-gray-50 w-32">수신자</th>
                                     <td class="px-4 py-3 bg-white">
                                         전체 사용자
                                     </td>
                                 </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
+                                    th:if="${detail.btnUseFirst == 'use'}">
                                     <th class="px-4 py-3 bg-gray-50 w-32">버튼 1</th>
                                     <td class="px-4 py-3 bg-white">
                                         <div>
-                                            버튼명 :
+                                            버튼명 : <span th:text="${detail.btnNameFirst}"></span>
                                         </div>
                                         <div>
-                                            버튼 링크 :
+                                            버튼 링크 : <span th:text="${detail.btnLinkFirst}"></span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
+                                    th:if="${detail.btnUseSecond == 'use'}">
                                     <th class="px-4 py-3 bg-gray-50 w-32">버튼 2</th>
                                     <td class="px-4 py-3 bg-white">
                                         <div>
-                                            버튼명 :
+                                            버튼명 : <span th:text="${detail.btnNameSecond}"></span>
                                         </div>
                                         <div>
-                                            버튼 링크 :
+                                            버튼 링크 : <span th:text="${detail.btnLinkSecond}"></span>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-sm border-b text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
+                                    th:if="${detail.btnUseThird == 'use'}">
                                     <th class="px-4 py-3 bg-gray-50 w-32">버튼 3</th>
                                     <td class="px-4 py-3 bg-white">
                                         <div>
-                                            버튼명 :
+                                            버튼명 : <span th:text="${detail.btnNameThird}"></span>
                                         </div>
                                         <div>
-                                            버튼 링크 :
+                                            버튼 링크 : <span th:text="${detail.btnLinkThird}"></span>
                                         </div>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                             <div class="flex justify-center my-4 gap-4">
-                                <a href="/admin/pushMessage/list">
-                                    <button class="bg-gray-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">
-                                        목록
+                                <a th:href="@{/admin/pushMessage/list}">
+                                    <button type="button"
+                                            class="text-gray-900 bg-white border border-gray-300
+                                                   focus:outline-none hover:bg-gray-100 focus:ring-4
+                                                   focus:ring-gray-200 font-medium rounded-lg text-sm
+                                                   px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white
+                                                   dark:border-gray-600 dark:hover:bg-gray-700
+                                                   dark:hover:border-gray-600 dark:focus:ring-gray-700">목록
                                     </button>
                                 </a>
-                                <a href="/admin/pushMessage/edit">
-                                    <button class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-red-700">
-                                        수정
+                                <a th:href="@{/admin/pushMessage/edit/{id}(id=${detail.id})}">
+                                    <button type="button"
+                                            class="focus:outline-none text-white bg-red-700
+                                                  hover:bg-red-800 focus:ring-4 focus:ring-red-300
+                                                  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2
+                                                  dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">수정
                                     </button>
                                 </a>
+                                <button type="button" id="pushMessageDel"
+                                        class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none
+                                                focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
+                                                px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700
+                                                dark:focus:ring-gray-700 dark:border-gray-700">삭제
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -175,5 +180,22 @@
         <div th:replace="layout/fragment :: footer"></div>
     </div>
 </div>
+<script th:inline="javascript">
+    let id = [[${detail.id}]];
+    $("#pushMessageDel").on("click", function () {
+        if (confirm("한번 삭제 한 글은 복구가 불가능합니다. \r\n정말 삭제하시겠습니까?")) {
+            $.ajax({
+                method: "post",
+                url: "/admin/pushMessage/delete/" + id,
+                success: function (result) {
+                    location.href = '/admin/pushMessage/list';
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

@@ -17,14 +17,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/login", "/sign-up", "/query/**").permitAll()
+                .antMatchers("/", "/login", "/sign-up", "/query/**", "/attach/**", "/img/**", "/images/**").permitAll()
                 .antMatchers("/admin/partners/**", "/admin/default").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 //                .antMatchers("/admin/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/")
                 .loginProcessingUrl("/login")
                 .usernameParameter("email")
                 .defaultSuccessUrl("/admin/default");

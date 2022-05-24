@@ -1,6 +1,8 @@
 package com.kubees.admin.api;
 
 import com.kubees.admin.notice.NoticeService;
+import com.kubees.admin.user.UserService;
+import com.kubees.domain.Feed;
 import com.kubees.domain.Notice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +21,11 @@ import java.util.Map;
 public class NoticeFlagChangeController {
 
     private final NoticeService noticeService;
+    private final UserService userService;
 
+    /**
+     * 공지사항 출력 상태
+     */
     @GetMapping("/notice/openFlag")
     public Map<String, Object> noticeModal(@RequestParam(required = false) Map<String, Object> param) {
 
@@ -37,6 +43,24 @@ public class NoticeFlagChangeController {
         map.put("id", noticeFlagChange.getId());
         map.put("openFlag", noticeFlagChange.getOpenFlag());
         return map;
+    }
 
+    /**
+     * 회원 상세 피드 보이기/숨기기
+     */
+    @GetMapping("/user/detail/feedStatus")
+    public Map<String, Object> feedStatus(@RequestParam(required = false) Map<String, Object> param) {
+        Long id = Long.valueOf(String.valueOf(param.get("id")));
+
+        boolean feedStatus = Boolean.parseBoolean((String) param.get("feedStatus"));
+
+        Feed feed = userService.getFeedProcessor(id);
+
+        Feed newFeed = userService.changeFeedStatusProcessor(feed, feedStatus);
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("id", newFeed.getId());
+        map.put("feedStatus", newFeed.isFeedStatus());
+        return map;
     }
 }

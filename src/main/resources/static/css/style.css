@@ -108,3 +108,37 @@ figure.gallery a {
 .none{
     display: none;
 }
+
+/*한 줄 말줄임*/
+.txt_line {
+    width:90%;
+    /*width:70px;*/
+    padding:0 5px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+/*3줄 말줄임*/
+.txt-three-line{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap:break-word;
+    line-height: 1.2em;
+    height: 3.6em;
+}
+
+/*5줄 말줄임*/
+.txt-five-line{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap:break-word;
+    line-height: 1.2em;
+    height: 6em;
+}

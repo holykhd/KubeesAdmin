@@ -71,4 +71,12 @@ public class NoticeSchedulerController {
 
         // 실행될 로직
     }
+
+    @Scheduled(cron = "0/1 * * * * *")
+    public void sampleJob1() {
+        log.info("asdfasdfasd");
+
+        // 실행될 로직
+    }
+
 }

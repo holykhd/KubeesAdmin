@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html x-data="data()" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/fragment :: head">
+<body>
+
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900"
+     :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <!-- 좌측 메뉴 -->
+    <div th:replace="layout/fragment :: left-menu"></div>
+
+    <div
+            x-show="isSideMenuOpen"
+            x-transition:enter="transition ease-in-out duration-150"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in-out duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+    ></div>
+    <!-- 모바일 메뉴 -->
+    <div th:replace="layout/fragment :: mobile-menu"></div>
+
+    <div class="flex flex-col flex-1 w-full">
+        <!-- sub 상단 메뉴 -->
+        <div th:replace="layout/sub-header-fragment ::sub-header-user"></div>
+        <main class="h-full overflow-y-auto">
+            <!-- start -->
+            <div class="px-6 grid md:grid-cols-2 gap-4">
+                <!-- Breadcrumb start -->
+                <div class="text-xl font-semibold flex items-center h-16">
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                            <li class="inline-flex items-center">
+                                <a href="#" class="inline-flex items-center text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                                    <svg class="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                                    <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">회원 관리</a>
+                                </div>
+                            </li>
+                            <li aria-current="page">
+                                <div class="flex items-center">
+                                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                                    <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500">목록</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <!-- Breadcrumb end -->
+                <form th:action="@{/admin/user/blockList}" th:object="${searchForm}">
+                    <div class="p-2 grid md:grid-cols-6">
+                        <div class="col-span-2"></div>
+                        <div class="grid md:grid-cols-4 gap-2 md:col-span-4">
+                            <div class="md:col-span-1">
+                                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 hidden">검색항목 선택</label>
+                                <select id="countries" th:field="*{searchType}" name="searchType"
+                                        class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="phone">연락처</option>
+                                    <option value="name">이름</option>
+                                    <option value="nickname">닉네임</option>
+                                    <option value="email">이메일</option>
+                                </select>
+                            </div>
+                            <div class="md:col-span-2">
+                                <input class="w-full h-full py-3 pl-2.5 pr-2 text-sm placeholder-gray-600 bg-white border border-gray-300 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300"
+                                       type="text"
+                                       th:field="*{keyword}"
+                                       placeholder="검색어 입력"
+                                       aria-label="Search"/>
+                            </div>
+                            <div class="md:col-span-1">
+                                <button class="md:w-20 w-full h-full px-3 py-1 text-sm text-center font-medium leading-5 text-white transition-colors duration-150 bg-black border border-transparent rounded-lg active:bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
+                                    검색
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- end -->
+
+                <!-- end -->
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <div class="px-6 mx-auto grid">
+                        <!-- 상단 타이틀 & 검색영역 -->
+                        <!-- New Table -->
+                        <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                            <div class="w-full overflow-auto">
+                                <table class="w-full whitespace-no-wrap">
+                                    <thead>
+                                    <tr class="text-sm font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 text-center">사용자 계정</th>
+                                        <th class="px-4 py-3 text-center">닉네임</th>
+                                        <th class="px-4 py-3 text-center">이름</th>
+                                        <th class="px-4 py-3 text-center">연락처</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                    <tr class="text-gray-700 dark:text-gray-400" th:if="${userList.getTotalElements() == 0}">
+                                        <td colspan="4" class="px-4 py-20 text-center">게시글이 존재하지 않습니다.</td>
+                                    </tr>
+                                    <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${userList}">
+                                        <td class="px-4 py-3 text-sm">
+                                            <a th:href="|javascript:blockUserList('${list.id}')|">
+                                                <span th:text="${list.email}">cube001@gmail.com</span>
+                                            </a>
+                                        </td>
+                                        <td class="px-4 py-3 text-center text-xs" th:text="${list.nickname}">닉네임</td>
+                                        <td class="px-4 py-3 text-center text-sm" th:text="${list.name}">홍길동</td>
+                                        <td class="px-4 py-3 text-center text-sm" th:text="${list.phone}">010-112-3332</td>
+                                    </tr>
+                                    </a>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="grid grid-cols-6 gap-4 px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-6 dark:text-gray-400 dark:bg-gray-800">
+                                <div class="col-start-1 col-span-1">
+                                </div>
+                                <div class="col-start-2 col-end-6 text-center">
+                                    <nav aria-label="Page navigation example" th:if="${userList.getTotalPages() > 0}">
+                                        <ul class="inline-flex items-center -space-x-px flex items-baseline">
+                                            <li th:if="${userList.hasPrevious()}">
+                                                <a th:href="@{/admin/user/blockList(searchType=${param.searchType}, keyword=${param.keyword}, page=${userList.getNumber() - 1})}"
+                                                   class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                                    <i class="fas fa-chevron-left"></i>
+                                                </a>
+                                            </li>
+                                            <li th:each="i : ${#numbers.sequence(0, userList.getTotalPages() - 1 )}">
+                                                <a th:href="@{/admin/user/blockList(searchType=${param.searchType}, keyword=${param.keyword}, page=${i})}"
+                                                   th:classappend="${i == (userList.getNumber()) ? 'text-blue-600 bg-blue-50 border-blue-300' : 'text-gray-500 bg-white border-gray-300'}"
+                                                   class="py-2 px-3 leading-tight border
+                                        hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400
+                                        dark:hover:bg-gray-700 dark:hover:text-white" th:text="${i + 1}">1</a>
+                                            </li>
+                                            <li th:if="${userList.hasNext()}">
+                                                <a th:href="@{/admin/user/blockList(searchType=${param.searchKeyword}, keyword=${param.keyword}, page=${userList.getNumber() + 1})}"
+                                                   class="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                                    <i class="fas fa-chevron-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="px-6 mx-auto grid">
+                        <!-- 상단 타이틀 & 검색영역 -->
+                        <!-- New Table -->
+                        <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                            <div class="w-full overflow-auto">
+                                <table class="w-full whitespace-no-wrap">
+                                    <thead>
+                                    <tr class="text-sm font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3 text-center">차단된 사용자</th>
+                                        <th class="px-4 py-3 text-center">닉네임</th>
+                                        <th class="px-4 py-3 text-center">이름</th>
+                                        <th class="px-4 py-3 text-center">연락처</th>
+                                        <th class="px-4 py-3 text-center">서비스 차단일</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" id="blockListArea">
+<!--
+                                    <tr class="text-gray-700 dark:text-gray-400" th:if="${userList.getTotalElements() == 0}">
+                                        <td colspan="5" class="px-4 py-20 text-center">차단한 회원 정보가 존재하지 않습니다.</td>
+                                    </tr>
+-->
+
+<!--
+                                    <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${userList}">
+                                        <td class="px-4 py-3 text-sm"><a
+                                                th:href="@{/admin/user/detail/{email}(email=${list.email}, searchType=${param.searchType}, keyword=${param.keyword})}"><span
+                                                th:text="${list.email}">cube001@gmail.com</span></a>
+                                        </td>
+                                        <td class="px-4 py-3 text-center text-xs" th:text="${list.nickname}">닉네임</td>
+                                        <td class="px-4 py-3 text-center text-sm" th:text="${list.name}">홍길동</td>
+                                        <td class="px-4 py-3 text-center text-sm" th:text="${list.phone}">010-112-3332</td>
+                                        <td class="px-4 py-3 text-center text-sm" th:text="${list.phone}">010-112-3332</td>
+                                    </tr>
+-->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div th:replace="layout/fragment :: footer"></div>
+    </div>
+</div>
+<script th:src="@{/js/flowbite.js}"></script>
+<script th:src="@{/js/user.js}"></script>
+</body>
+</html>

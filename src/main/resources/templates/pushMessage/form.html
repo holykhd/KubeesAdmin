@@ -86,13 +86,16 @@
                                         <th class="px-4 py-3 bg-gray-50 w-32">제목</th>
                                         <td colspan="3" class="px-4 py-3 bg-white">
                                             <input type="text" class="w-full form-input" th:field="*{title}">
+                                            <span th:if="${#fields.hasErrors('title')}"
+                                                  class="text-red-600">제목을 입력해 주세요</span>
                                         </td>
                                     </tr>
                                     <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                         <th class="px-4 py-3 bg-gray-50 w-32">본문</th>
                                         <td colspan="3" class="px-4 py-3 bg-white">
-                                            <textarea name="" id="" cols="30" rows="10" th:field="*{message}"
+                                            <textarea th:field="*{contents}" cols="30" rows="10"
                                                       class="w-full h-36 form-input"></textarea>
+                                            <span th:if="${#fields.hasErrors('message')}" class="text-red-600">본문을 입력해 주세요</span>
                                         </td>
                                     </tr>
                                     <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
@@ -105,9 +108,13 @@
                                                         <div class="flex justify-between">
                                                             <span>버튼 1</span>
                                                             <span>
-                                  <input type="checkbox" id="btnUseFirst" th:field="*{btnUseFirst}" value="use"
-                                         class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                </span>
+                                                              <input type="checkbox" id="btnUseFirst"
+                                                                     th:field="*{btnUseFirst}" value="use"
+                                                                     class="w-4 h-4 text-blue-600 rounded border-gray-300
+                                                                     focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                                                                     focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                                     th:checked="${pushMessageForm.btnUseFirst == 'use' ? 'checked' : ''}">
+                                                            </span>
                                                         </div>
                                                     </th>
                                                     <td class="px-4 py-3 bg-white">
@@ -116,13 +123,22 @@
                                                                 <span class="w-20">버튼명</span>
                                                                 <input type="text" id="btn-name-first"
                                                                        th:field="*{btnNameFirst}"
-                                                                       class="btnUseFirstGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                       class="btnUseFirstGroup border border-gray-300 text-gray-900 text-sm
+                                                                       rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+                                                                       dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                                                       dark:focus:ring-blue-500 dark:focus:border-blue-500 bg-gray-100"
+                                                                       disabled="disabled">
                                                             </div>
                                                             <div class="flex justify-between items-center">
                                                                 <span class="w-20">버튼 링크</span>
                                                                 <input type="text" id="btn-link-first"
                                                                        th:field="*{btnLinkFirst}"
-                                                                       class="btnUseFirstGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                       class="btnUseFirstGroup border border-gray-300
+                                                                       text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                                                                       focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                                                                       dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+                                                                       dark:focus:border-blue-500 bg-gray-100"
+                                                                       disabled="disabled">
                                                             </div>
                                                         </div>
                                                     </td>
@@ -132,9 +148,12 @@
                                                         <div class="flex justify-between">
                                                             <span>버튼 2</span>
                                                             <span>
-                                  <input type="checkbox" id="btnUseSecond" th:field="*{btnUseSecond}" value="use"
-                                         class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                </span>
+                                                              <input type="checkbox" id="btnUseSecond"
+                                                                     th:field="*{btnUseSecond}" value="use"
+                                                                     class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500
+                                                                     dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2
+                                                                     dark:bg-gray-700 dark:border-gray-600">
+                                                            </span>
                                                         </div>
                                                     </th>
                                                     <td class="px-4 py-3 bg-white">
@@ -143,13 +162,21 @@
                                                                 <span class="w-20">버튼명</span>
                                                                 <input type="text" id="btn-name-second"
                                                                        th:field="*{btnNameSecond}"
-                                                                       class="btnUseSecondGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                       class="btnUseSecondGroup border border-gray-300 text-gray-900
+                                                                       text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500
+                                                                       block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 bg-gray-100"
+                                                                       disabled="disabled">
                                                             </div>
                                                             <div class="flex justify-between items-center">
                                                                 <span class="w-20">버튼 링크</span>
                                                                 <input type="text" id="btn-link-second"
                                                                        th:field="*{btnLinkSecond}"
-                                                                       class="btnUseSecondGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                       class="btnUseSecondGroup border border-gray-300 text-gray-900
+                                                                        text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full
+                                                                        p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 bg-gray-100"
+                                                                       disabled="disabled">
                                                             </div>
                                                         </div>
                                                     </td>
@@ -159,9 +186,12 @@
                                                         <div class="flex justify-between">
                                                             <span>버튼 3</span>
                                                             <span>
-                                  <input type="checkbox" id="btnUseThird" th:field="*{btnUseThird}" value="use"
-                                         class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                </span>
+                                                              <input type="checkbox" id="btnUseThird"
+                                                                     th:field="*{btnUseThird}" value="use"
+                                                                     class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500
+                                                                     dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2
+                                                                     dark:bg-gray-700 dark:border-gray-600">
+                                                            </span>
                                                         </div>
                                                     </th>
                                                     <td class="px-4 py-3 bg-white">
@@ -170,13 +200,21 @@
                                                                 <span class="w-20">버튼명</span>
                                                                 <input type="text" id="btn-name-third"
                                                                        th:field="*{btnNameThird}"
-                                                                       class="btnUseThirdGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                       class="btnUseThirdGroup border border-gray-300 text-gray-900 text-sm
+                                                                       rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+                                                                       dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                                                       dark:focus:ring-blue-500 dark:focus:border-blue-500 bg-gray-100"
+                                                                       disabled="disabled">
                                                             </div>
                                                             <div class="flex justify-between items-center">
                                                                 <span class="w-20">버튼 링크</span>
                                                                 <input type="text" id="btn-link-third"
                                                                        th:field="*{btnLinkThird}"
-                                                                       class="btnUseThirdGroup border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                       class="btnUseThirdGroup border border-gray-300 text-gray-900
+                                                                       text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500
+                                                                       block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                                                       dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 bg-gray-100"
+                                                                       disabled="disabled">
                                                             </div>
                                                         </div>
                                                     </td>
@@ -185,6 +223,7 @@
                                             <!-- 버튼설정 종료 -->
                                         </td>
                                     </tr>
+<!--
                                     <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
                                         <th class="px-4 py-3 bg-gray-50 w-32">수신자</th>
                                         <td class="px-4 py-3 bg-white">
@@ -193,10 +232,15 @@
                                                        class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">시간선택</label>
                                                 <select id="sendUser"
                                                         th:field="*{sendUser}"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                    <option value="">전체 사용자</option>
-                                                    <option value="00">전체 사용자</option>
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                                        focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700
+                                                        dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+                                                        dark:focus:border-blue-500">
+                                                    <option value="">수신자 선택</option>
+                                                    <option value="전체사용자">전체 사용자</option>
+                                                    <option value="전체사용자">전체 사용자</option>
                                                 </select>
+                                                <span th:if="${#fields.hasErrors('sendUser')}" class="text-red-600">수신자를 선택해 주세요</span>
                                             </div>
                                         </td>
                                         <th class="px-4 py-3 bg-gray-50 w-32">발송 주기</th>
@@ -205,16 +249,22 @@
                                                    class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">시간선택</label>
                                             <select id="sendCycle"
                                                     th:field="*{sendCycle}"
-                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                <option value="">1회 발송</option>
-                                                <option value="week">매주 발송</option>
-                                                <option value="month">매월 발송</option>
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                                     focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700
+                                                     dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                                     dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                <option value="">발송주기 선택</option>
+                                                <option value="1회발송">1회 발송</option>
+                                                <option value="매주발송">매주 발송</option>
+                                                <option value="매월발송">매월 발송</option>
                                             </select>
+                                            <span th:if="${#fields.hasErrors('sendCycle')}" class="text-red-600">발송 주기를 선택해 주세요</span>
                                         </td>
                                     </tr>
+-->
                                     <tr class="text-sm border-b text-gray-700 uppercase dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                                        <th class="px-4 py-3 bg-gray-50 w-32">발송 시간</th>
-                                        <td colspan="3" class="px-4 py-3 bg-white">
+                                        <th class="px-4 py-3 bg-gray-50 w-32 h-20">발행시간</th>
+                                        <td class="px-4 py-3 bg-white">
                                             <div class="flex justify-between">
                                                 <div class="grid lg:grid-cols-8 gap-4 flex justify-between items-center">
                                                     <div>
@@ -222,14 +272,12 @@
                                                         <fieldset>
                                                             <legend class="sr-only">현재</legend>
                                                             <div class="flex items-center">
-                                                                <input id="sendTimeNow" type="radio"
-                                                                       name="sendTime"
-                                                                       th:field="*{sendTime}"
+                                                                <input id="now" type="radio" th:field="*{publishTime}"
                                                                        value="now"
                                                                        class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                                                                       aria-labelledby="sendTimeNow"
-                                                                       aria-describedby="sendTimeNow" checked>
-                                                                <label for="sendTimeNow"
+                                                                       aria-labelledby="country-option-1"
+                                                                       aria-describedby="country-option-1">
+                                                                <label for="now"
                                                                        class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                                                     현재
                                                                 </label>
@@ -242,13 +290,12 @@
                                                         <fieldset>
                                                             <legend class="sr-only">예약</legend>
                                                             <div class="flex items-center">
-                                                                <input id="sendTimeReservation" type="radio"
-                                                                       name="sendTime"
+                                                                <input id="reservation" type="radio" th:field="*{publishTime}"
                                                                        value="reservation"
                                                                        class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                                                                       aria-labelledby="sendTime"
-                                                                       aria-describedby="sendTime">
-                                                                <label for="sendTimeReservation"
+                                                                       aria-labelledby="country-option-2"
+                                                                       aria-describedby="country-option-2">
+                                                                <label for="reservation"
                                                                        class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                                                     예약
                                                                 </label>
@@ -257,29 +304,26 @@
                                                         <!-- radio button -->
                                                     </div>
                                                     <div class="lg:col-span-6 grid lg:grid-cols-3 lg:gap-2">
-                                                        <div class="relative">
+                                                        <div class="relative noticeDatepicker">
                                                             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                                                     fill="currentColor" viewBox="0 0 20 20"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path fill-rule="evenodd"
-                                                                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                                                          clip-rule="evenodd"></path>
-                                                                </svg>
+                                                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
                                                             </div>
-                                                            <input id="sendDate" autocomplete="off" datepicker
+                                                            <input id="noticeDatepicker" datepicker
+                                                                   th:field="*{publishDate}"
+                                                                   inline-datepicker
+                                                                   type="text"
+                                                                   autocomplete="off"
                                                                    datepicker-buttons datepicker-format="yyyy-mm-dd"
-                                                                   datepicker-orientation="top left" type="text"
-                                                                   th:field="*{sendDate}"
-                                                                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                                   placeholder="날짜 선택">
+                                                                   datepicker-orientation="bottom left"
+                                                                   placeholder="날짜 선택"
+                                                                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                         </div>
-                                                        <div class="flex justify-between gap-2 grid lg:grid-cols-2">
+
+                                                        <div class="flex justify-between gap-2 grid lg:grid-cols-2 noticeDatetime">
                                                             <div>
-                                                                <label for="sendHour"
+                                                                <label for="publishHour"
                                                                        class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">시간선택</label>
-                                                                <select id="sendHour"
-                                                                        th:field="*{sendHour}"
+                                                                <select id="publishHour" th:field="*{publishHour}"
                                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                                     <option value="">시간 선택</option>
                                                                     <option value="00">00시</option>
@@ -309,11 +353,10 @@
                                                                 </select>
                                                             </div>
                                                             <div>
-                                                                <label for="sendMinutes"
+                                                                <label for="publishMinutes"
                                                                        class="hidden text-sm font-medium text-gray-900 dark:text-gray-400">분
                                                                     선택</label>
-                                                                <select id="sendMinutes"
-                                                                        th:field="*{sendMinutes}"
+                                                                <select id="publishMinutes" th:field="*{publishMinutes}"
                                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                                     <option value="">분 선택</option>
                                                                     <option value="00">00분</option>
@@ -325,27 +368,31 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="text-green-400 font-semibold flex items-center">*
-                                                            설정한
+                                                        <div class="text-green-400 font-semibold flex items-center noticeDatetimeText">* 설정한
                                                             시각으로 예약 등록 합니다.
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <p th:if="${#fields.hasErrors('publishTime')}" class="text-red-600">발행 시간을 선택해 주세요</p>
+                                            <p th:text="${pushMessageForm.message}" class="text-red-600 text-center mt-3">발행 시간을 선택해 주세요</p>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                                 <div class="flex justify-center my-4 gap-4">
+                                    <button class="focus:outline-none text-white bg-red-700
+                                                    hover:bg-red-800 focus:ring-4 focus:ring-red-300
+                                                    font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2
+                                                    dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">등록
+                                    </button>
                                     <a th:href="@{/admin/pushMessage/list}">
-                                        <button type="button"
-                                                class="bg-gray-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-gray-700">
-                                            취소
+                                        <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none
+                                                                  focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
+                                                                  px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700
+                                                                  dark:focus:ring-gray-700 dark:border-gray-700">취소
                                         </button>
                                     </a>
-                                    <button class="bg-red-500 text-white text-sm rounded-lg font-medium py-1 px-6 hover:bg-red-700">
-                                        등록
-                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -355,60 +402,10 @@
             <!-- end -->
         </main>
         <div th:replace="layout/fragment :: footer"></div>
-        <script>
-            $("#sendTimeNow").click(function () {
-                $("#sendHour, #sendDate, #sendMinutes").val("");
-                $("#sendHour, #sendDate, #sendMinutes").prop("disabled", true);
-            });
-
-            $("#sendTimeReservation").click(function () {
-                $("#sendHour, #sendDate, #sendMinutes").removeAttr("disabled");
-            });
-
-            $(function() {
-                enableF_cb();
-                $("#btnUseFirst").click(enableF_cb);
-            });
-
-            function enableF_cb() {
-                if (this.checked) {
-                    $("input.btnUseFirstGroup").removeAttr("disabled");
-                    $("input.btnUseFirstGroup").removeClass("bg-gray-100");
-                } else {
-                    $("input.btnUseFirstGroup").attr("disabled", true);
-                    $("input.btnUseFirstGroup").addClass("bg-gray-100");
-                }
-            }
-            $(function() {
-                enableS_cb();
-                $("#btnUseSecond").click(enableS_cb);
-            });
-
-            function enableS_cb() {
-                if (this.checked) {
-                    $("input.btnUseSecondGroup").removeAttr("disabled");
-                    $("input.btnUseSecondGroup").removeClass("bg-gray-100");
-                } else {
-                    $("input.btnUseSecondGroup").attr("disabled", true);
-                    $("input.btnUseSecondGroup").addClass("bg-gray-100");
-                }
-            }
-            $(function() {
-                enableT_cb();
-                $("#btnUseThird").click(enableT_cb);
-            });
-
-            function enableT_cb() {
-                if (this.checked) {
-                    $("input.btnUseThirdGroup").removeAttr("disabled");
-                    $("input.btnUseThirdGroup").removeClass("bg-gray-100");
-                } else {
-                    $("input.btnUseThirdGroup").attr("disabled", true);
-                    $("input.btnUseThirdGroup").addClass("bg-gray-100");
-                }
-            }
-
+        <script th:inline="javascript">
+            let publishTime = [[${pushMessageForm.publishTime}]];
         </script>
+        <script type="text/javascript" th:src="@{/js/pushMessage.js}"></script>
     </div>
 </div>
 </body>

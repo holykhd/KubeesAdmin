@@ -7,5 +7,5 @@ import lombok.Data;
 public class SearchForm extends Account {
     private String searchType;
     private String keyword;
-
+    private boolean feedStatus;
 }

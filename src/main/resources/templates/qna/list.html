@@ -123,7 +123,7 @@
                         <table class="w-full whitespace-no-wrap">
                             <thead>
                             <tr class="text-sm font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3"><input type="checkbox"></th>
+<!--                                <th class="px-4 py-3"><input type="checkbox"></th>-->
                                 <th class="px-4 py-3 text-center">제목</th>
                                 <th class="px-4 py-3 text-center">문의유형</th>
                                 <th class="px-4 py-3 text-center">작성자</th>
@@ -133,7 +133,7 @@
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                             <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${qnaList}">
-                                <td class="px-4 py-3"><input type="checkbox"></td>
+<!--                                <td class="px-4 py-3"><input type="checkbox"></td>-->
                                 <td class="px-4 py-3 text-sm"><a th:href="@{/admin/qna/detail/{id}(id=${list.id})}" th:text="${list.title}">문의 제목이 출력되는 공간입니다.</a></td>
                                 <td class="px-4 py-3 text-center text-sm">
                                     <span th:if="${list.type.toString() == 'QNA_SERVICE'}" th:utext="'서비스 문의'">서비스 문의</span>

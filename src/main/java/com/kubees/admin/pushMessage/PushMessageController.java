@@ -15,12 +15,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +37,7 @@ public class PushMessageController {
      */
     @GetMapping("/list")
     public String list(Model model, SearchForm searchForm,
-                             @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+                             @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) throws ParseException {
         Page<PushMessage> pushMessageList =  pushMessageService.getPushMessageProcessor(searchForm, pageable);
         model.addAttribute("pushMessageList", pushMessageList);
         return "pushMessage/list";
@@ -58,8 +56,21 @@ public class PushMessageController {
      * 푸시메시지 등록
      */
     @PostMapping("/form")
-    public String create(@AuthenticationPrincipal PrincipalDetails principalDetails, @Valid PushMessageForm pushMessageForm, BindingResult bindingResult) {
-        log.info("pushMessageForm ={}", pushMessageForm);
+    public String create(@AuthenticationPrincipal PrincipalDetails principalDetails, @Valid PushMessageForm pushMessageForm, BindingResult bindingResult) throws ParseException {
+        if (pushMessageForm.getPublishTime().equals("reservation") &&
+                (pushMessageForm.getPublishDate() == null
+                        || pushMessageForm.getPublishHour().length() < 2
+                        || pushMessageForm.getPublishMinutes().length() < 2)) {
+
+            pushMessageForm.setMessage("예약 등록을 하실 경우 예약 날짜와 시간은 필수 입력 사항입니다.");
+//            return "redirect:/admin/notice/form";
+            return "pushMessage/form";
+        }
+
+        if (bindingResult.hasErrors()) {
+            log.info("bindingError ={}", bindingResult.getAllErrors());
+            return "pushMessage/form";
+        }
         pushMessageService.createPushMessageProcessor(principalDetails, pushMessageForm);
 
         return "redirect:/admin/pushMessage/list";
@@ -80,6 +91,8 @@ public class PushMessageController {
      */
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable Long id, Model model) {
+        PushMessage pushMessageDetail = pushMessageRepository.findById(id).orElse(null);
+        model.addAttribute("pushMessageForm", pushMessageDetail);
         return "pushMessage/edit";
     }
 
@@ -87,8 +100,23 @@ public class PushMessageController {
     /**
      * 푸시메시지 수정
      */
-    @PostMapping("/edit")
-    public String edit(@AuthenticationPrincipal PrincipalDetails principalDetails, @Valid PushMessageForm pushMessageForm, BindingResult bindingResult) {
-        return "pushMessage/edit";
+    @PostMapping("/edit/{id}")
+    public String edit(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                       @PathVariable Long id,
+                       @Valid PushMessageForm pushMessageForm, BindingResult bindingResult) throws ParseException {
+        if (bindingResult.hasErrors()) {
+            return "pushMessage/edit";
+        }
+        pushMessageService.editPushMessageProcessor(principalDetails, pushMessageForm, id);
+        return "redirect:/admin/pushMessage/list";
+    }
+
+    /**
+     * 푸시메시지 삭제
+     */
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        pushMessageService.deleteProcessor(id);
+        return "redirect:/admin/pushMessage/list";
     }
 }
