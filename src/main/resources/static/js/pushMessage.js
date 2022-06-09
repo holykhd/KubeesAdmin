@@ -1,13 +1,38 @@
-if (publishTime == "now") {
-    $(".sendTimeNowArea").addClass("invisible");
+if (publishTime == "reservation") {
+    $("input:radio[id='reservation']").prop('checked', true);
+    $(".noticeDatepicker").removeClass('invisible');
+    $(".noticeDatetime").removeClass('invisible');
+    $(".noticeDatetimeText").removeClass('invisible');
+} else {
+    $("input:radio[id='now']").prop('checked', true);
+    $(".noticeDatepicker").addClass('invisible');
+    $(".noticeDatetime").addClass('invisible');
+    $(".noticeDatetimeText").addClass('invisible');
+    $(".datepicker").addClass("invisible");
 }
 
-$("#sendTimeNow").change(function () {
-    $(".sendTimeNowArea").addClass("invisible");
-});
 
-$("#sendTimeReservation").change(function () {
-    $(".sendTimeNowArea").removeClass('invisible');
+$("#now").change(function () {
+    $(".noticeDatepicker").addClass('invisible');
+    $(".noticeDatetime").addClass('invisible');
+    $(".noticeDatetimeText").addClass('invisible');
+    $(".datepicker").addClass("invisible");
+});
+$("#reservation").change(function () {
+    $(".noticeDatepicker").removeClass('invisible');
+    $(".noticeDatetime").removeClass('invisible');
+    $(".noticeDatetimeText").removeClass('invisible');
+    $(".datepicker").removeClass("invisible");
+
+    if ($("#noticeDatepicker").val() == "") {
+        $("#noticeDatepicker").focus();
+    }
+    if ($("#publishHour").val() == "") {
+        $("#publishHour").focus();
+    }
+    if ($("#publishMinutes").val() == "") {
+        $("#publishMinutes").focus();
+    }
 });
 
 $(document).ready(function () {

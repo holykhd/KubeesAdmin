@@ -107,11 +107,9 @@
                                     <tr class="text-gray-700 dark:text-gray-400" th:if="${userList.getTotalElements() == 0}">
                                         <td colspan="4" class="px-4 py-20 text-center">게시글이 존재하지 않습니다.</td>
                                     </tr>
-                                    <tr class="text-gray-700 dark:text-gray-400" th:each="list : ${userList}">
+                                    <tr class="text-gray-700 dark:text-gray-400 cursor-pointer hover:bg-gray-100" th:each="list : ${userList}" th:onclick="|javascript:blockUserList('${list.id}')|">
                                         <td class="px-4 py-3 text-sm">
-                                            <a th:href="|javascript:blockUserList('${list.id}')|">
                                                 <span th:text="${list.email}">cube001@gmail.com</span>
-                                            </a>
                                         </td>
                                         <td class="px-4 py-3 text-center text-xs" th:text="${list.nickname}">닉네임</td>
                                         <td class="px-4 py-3 text-center text-sm" th:text="${list.name}">홍길동</td>

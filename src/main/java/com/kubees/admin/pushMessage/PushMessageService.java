@@ -73,7 +73,7 @@ public class PushMessageService {
 
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public Page<PushMessage> getPushMessageProcessor(SearchForm searchForm, Pageable pageable) throws ParseException {
         // 현재 시간 값을 밀리세컨으로 구한다.
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");

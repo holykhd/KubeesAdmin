@@ -92,6 +92,11 @@ $("#feed-status-toggle").click(function () {
 
 
 /*blackList*/
+
+// 초기 차단회원 목록 UI
+$("#blockListArea").append(getEmptyHtml());
+
+
 function blockUserList(id) {
     let html = "";
     $.ajax({

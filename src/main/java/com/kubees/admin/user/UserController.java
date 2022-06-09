@@ -49,6 +49,19 @@ public class UserController {
     }
 
     /**
+     * 정상 회원 목록
+     */
+    @GetMapping("/normalList")
+    public String userNormalList(Model model, SearchForm searchForm,
+                                     @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        model.addAttribute("searchForm", searchForm);
+        Page<Account> userList = userService.searchUserNormalList(searchForm, pageable);
+        model.addAttribute("header", "normal");
+        model.addAttribute("userList", userList);
+        return "user/normalList";
+    }
+
+    /**
      * 사용 제한 회원 목록
      */
     @GetMapping("/deprecatedList")
@@ -58,7 +71,7 @@ public class UserController {
         Page<Account> userList = userService.searchUserDeprecatedList(searchForm, pageable);
         model.addAttribute("header", "deprecated");
         model.addAttribute("userList", userList);
-        return "user/list";
+        return "user/deprecatedList";
     }
 
     /**

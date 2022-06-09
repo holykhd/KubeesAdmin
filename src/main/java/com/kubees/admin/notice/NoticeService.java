@@ -4,7 +4,6 @@ import com.kubees.admin.auth.PrincipalDetails;
 import com.kubees.admin.notice.form.NoticeForm;
 import com.kubees.admin.notice.form.SearchForm;
 import com.kubees.domain.Notice;
-import com.kubees.domain.QNotice;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -66,12 +65,9 @@ public class NoticeService {
         }
 
         noticeRepository.save(notice);
-
-        // TODO LIST 글 등록 (즉시 등록, 예약등록기능)
-        // 글 바로 등록하기
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public Page<Notice> getNoticeProcessor(SearchForm searchForm, Pageable pageable) throws ParseException {
         // 현재 시간 값을 밀리세컨으로 구한다.
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -82,7 +78,24 @@ public class NoticeService {
         queryFactory = new JPAQueryFactory(em);
 
         // 예약 등록인 글들을 조회해서 예약 시간보다 현재 시간이 큰 값이 있을 경우 open_flag를 N에서 Y로 변경하기
-        List<Notice> reservationList = queryFactory.selectFrom(notice)
+        List<Notice> reservationList = queryFactory
+                .selectFrom(notice)
+/*
+                .select(
+                        Projections.fields(
+                                Notice.class
+                                , notice.title
+                                , notice.createdAt
+                                , notice.publishTime
+                                , notice.publishDate
+                                , notice.publishHour
+                                , notice.publishMinutes
+                                , notice.openFlag
+                                , notice.openDate
+                                , notice.id
+                        ))
+ */
+                .from(notice)
                 .where(
                         notice.publishTime.eq("reservation")
                                 .and(notice.openFlag.eq("N"))
@@ -112,7 +125,18 @@ public class NoticeService {
         }
 
         QueryResults<Notice> resultList = queryFactory
-                .selectFrom(notice)
+                .select(
+                        Projections.fields(
+                                Notice.class
+                                , notice.title
+                                , notice.createdAt
+                                , notice.publishTime
+                                , notice.publishDate
+                                , notice.publishHour
+                                , notice.publishMinutes
+                                , notice.openFlag
+                                , notice.id))
+                .from(notice)
                 .where(searchTypeContain(searchForm.getSearchType(), searchForm.getKeyword()))
                 .offset(pageable.getOffset())
                 .orderBy(notice.id.desc())

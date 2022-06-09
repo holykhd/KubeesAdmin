@@ -85,6 +85,26 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public Page<Account> searchUserNormalList(SearchForm searchForm, Pageable pageable) {
+        queryFactory = new JPAQueryFactory(em);
+        QueryResults<Account> results = queryFactory.selectFrom(account)
+                .where(
+                        searchTypeContain(
+                                searchForm.getSearchType(),
+                                searchForm.getKeyword()),
+                        roleUser(UserRole.ROLE_USER),
+                        account.userStatus.eq(UserStatus.Y)
+                )
+                .orderBy(account.createdAt.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+        List<Account> content = results.getResults();
+        long total = results.getTotal();
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    @Transactional(readOnly = true)
     public Page<Account> searchUserBlockList(SearchForm searchForm, Pageable pageable) {
         queryFactory = new JPAQueryFactory(em);
         QueryResults<Account> results = queryFactory.selectFrom(account)

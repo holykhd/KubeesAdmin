@@ -97,7 +97,7 @@ public class SnsService {
         queryFactory = new JPAQueryFactory(em);
         return queryFactory.select(subscribe.count())
                 .from(subscribe)
-                .where(subscribe.fromUser.userId.eq(result.getUserId()))
+                .where(subscribe.fromUser.userId.eq(result.getEmail()))
                 .fetchOne();
     }
 

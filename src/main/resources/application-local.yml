@@ -1,0 +1,74 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/kubees
+    driver-class-name: org.postgresql.Driver
+    username: kubeesuser
+    password: kubeespass
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        #        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+
+
+  # 이메일은 임시로 예전 세이펜 정보를 사용한다. 나중에 정보는 수정해야한다.
+  mail:
+    host: smtp.gmail.com
+    username: saypen640
+    #    password: spsp291221! (구글메일 비밀번호)
+    #    password: spsp291221!
+    #    password: vlhyuzlbcvdabfeu (앱비밀번호)
+    password: vlhyuzlbcvdabfeu
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+
+file:
+  upload-path: /Users/foreverskhd/home/KUBEES_PROJECT/
+#  upload-path: /kubees/tomcat/upload
+
+springdoc:
+  version: '@project.version@'
+  api-docs:
+    path: /api-docs
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    path: /swagger-ui
+    disable-swagger-default-url: true
+    display-query-params-without-oauth2: true
+  paths-to-match:
+    - /api/**
+    - /test/**
+    - /home/**
+
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
+
+
+
+server:
+  error:
+    include-exception: true
+    include-message: on_param
+    include-stacktrace: on_param
+    include-binding-errors: on_param
+  port: 9080
+

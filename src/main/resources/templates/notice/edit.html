@@ -239,38 +239,11 @@
         <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
-        <script>
+        <script th:inline="javascript">
             let publishTime = '[[${noticeForm.publishTime}]]';
-            if (publishTime == "reservation") {
-                $("input:radio[id='reservation']").prop('checked', true);
-                $(".noticeDatepicker").removeClass('invisible');
-                $(".noticeDatetime").removeClass('invisible');
-                $(".noticeDatetimeText").removeClass('invisible');
-            } else {
-                $("input:radio[id='now']").prop('checked', true);
-            }
-
-            $(document).ready(function() {
-                $('#contents').summernote({
-                    height: 300,                 // set editor height
-                    minHeight: null,             // set minimum height of editor
-                    maxHeight: null,             // set maximum height of editor
-                    focus: true                  // set focus to editable area after initializing summernote
-                });
-            });
-
-            $("#now").change(function () {
-                $(".noticeDatepicker").addClass('invisible');
-                $(".noticeDatetime").addClass('invisible');
-                $(".noticeDatetimeText").addClass('invisible');
-            });
-            $("#reservation").change(function () {
-                $(".noticeDatepicker").removeClass('invisible');
-                $(".noticeDatetime").removeClass('invisible');
-                $(".noticeDatetimeText").removeClass('invisible');
-
-            });
         </script>
+        <script th:src="@{/js/notice.js}"></script>
+
         <div th:replace="layout/fragment :: footer"></div>
     </div>
 </div>

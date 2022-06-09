@@ -6,6 +6,8 @@
     overflow: hidden;
     background: #000000;
     text-align: left;
+    width: 100%;
+    height: 250px;
 }
 .feed-gallery figure.gallery * {
     -webkit-box-sizing: border-box;

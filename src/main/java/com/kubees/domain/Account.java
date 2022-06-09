@@ -32,6 +32,7 @@ public class Account {
     @Column(unique = true)
     private String email;                       // 이메일
 
+    @Column(columnDefinition = "text")
     private String nickname;                    // 닉네임
 
     private String password;                    // 비밀번호
@@ -56,7 +57,7 @@ public class Account {
     @Column(name = "status_updated_at")
     private LocalDateTime statusUpdatedAt;          // 회원 계정정보를 변경한 날짜
 
-    @Column(name = "user_description")
+    @Column(name = "user_description", columnDefinition = "text")
     private String userDescription;                    // 소개문구
 
     @Column(name = "character_id")
@@ -83,6 +84,9 @@ public class Account {
 
     @Column(name = "user_role")
     private String roles;                  // 회원 권한(일반회원, 매니저, 관리자)
+
+    @Column(name = "sns_profile_img")
+    private String snsProfileImg;           // sns 프로필 이미지
 
     @OneToMany(mappedBy = "account", fetch = LAZY)
     @JsonIgnoreProperties({"account"})
