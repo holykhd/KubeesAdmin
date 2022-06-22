@@ -64,6 +64,9 @@ public class Feed {
 
     private String location;                            // 위치정보(차후 추가작업 필요)
 
+    @Column(name = "url_shortcuts")
+    private String urlShortcuts;                           // 피드 바로가기 링크 URL
+
     private boolean switchLikeAndHits;                   // 좋아요 및 조회수 보이기/숨기기(숨기기시 본인만 보여진다.)(true : 좋아요 보이기 / false : 좋아요 숨기기)
 
     private boolean switchReply;                          // 댓글 보이기 숨기기(true : 댓글 보이기 / false : 댓글 숨기기)

@@ -56,6 +56,12 @@ public class AttachFeed {
     @Column(name = "attach_created_at")
     private LocalDateTime attachCreatedAt;      // 첨부파일 등록일
 
+    @Column(name = "image_tag_list")
+    private String imageTagList;                // 이미지 태그 정보
+
+    @Column(name = "video_tag_list")
+    private String videoTagList;                // 비디오 태그 정보
+
     @PrePersist
     public void createDate() {
         this.attachCreatedAt = LocalDateTime.now();

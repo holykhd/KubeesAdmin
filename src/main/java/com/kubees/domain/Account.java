@@ -32,7 +32,7 @@ public class Account {
     @Column(unique = true)
     private String email;                       // 이메일
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "text", unique = true)
     private String nickname;                    // 닉네임
 
     private String password;                    // 비밀번호
